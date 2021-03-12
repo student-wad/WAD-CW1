@@ -7,12 +7,6 @@ using System.Threading.Tasks;
 
 namespace eZone.DAL.DBO
 {
-    public enum CourseLevel
-    {
-        IELTS,
-        GeneralEnglish
-    }
-
     public class Course
     {
         [Range(0, int.MaxValue)]

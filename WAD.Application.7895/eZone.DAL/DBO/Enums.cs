@@ -41,4 +41,10 @@ namespace eZone.DAL.DBO
         [Description("Not Paid")]
         Not_Paid
     }
+
+    public enum CourseLevel
+    {
+        IELTS,
+        GeneralEnglish
+    }
 }
