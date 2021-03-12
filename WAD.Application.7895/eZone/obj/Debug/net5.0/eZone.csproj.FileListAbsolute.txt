@@ -180,3 +180,8 @@ C:\Users\user\Source\Repos\WAD-CW1\WAD.Application.7895\eZone\obj\Debug\net5.0\R
 C:\Users\user\Source\Repos\WAD-CW1\WAD.Application.7895\eZone\obj\Debug\net5.0\Razor\Views\Student\Details.cshtml.g.cs
 C:\Users\user\Source\Repos\WAD-CW1\WAD.Application.7895\eZone\obj\Debug\net5.0\Razor\Views\Student\Edit.cshtml.g.cs
 C:\Users\user\Source\Repos\WAD-CW1\WAD.Application.7895\eZone\obj\Debug\net5.0\Razor\Views\Student\Index.cshtml.g.cs
+C:\Users\user\Source\Repos\WAD-CW1\WAD.Application.7895\eZone\obj\Debug\net5.0\Razor\Views\Course\Create.cshtml.g.cs
+C:\Users\user\Source\Repos\WAD-CW1\WAD.Application.7895\eZone\obj\Debug\net5.0\Razor\Views\Course\Delete.cshtml.g.cs
+C:\Users\user\Source\Repos\WAD-CW1\WAD.Application.7895\eZone\obj\Debug\net5.0\Razor\Views\Course\Details.cshtml.g.cs
+C:\Users\user\Source\Repos\WAD-CW1\WAD.Application.7895\eZone\obj\Debug\net5.0\Razor\Views\Course\Edit.cshtml.g.cs
+C:\Users\user\Source\Repos\WAD-CW1\WAD.Application.7895\eZone\obj\Debug\net5.0\Razor\Views\Course\Index.cshtml.g.cs

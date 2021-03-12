@@ -7,11 +7,7 @@ using System.Threading.Tasks;
 
 namespace eZone.Models
 {
-    public enum PaymentStatus
-    {
-        Paid,
-        Not_Paid
-    }
+    
 
     public class Student
     {
