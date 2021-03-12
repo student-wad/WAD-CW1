@@ -53,5 +53,7 @@ namespace eZone.Models
         [Required]
         [DisplayName("Number of Students")]
         public int NumOfStudents { get; set; }
+
+        public int? CourseId { get; set; }
     }
 }
