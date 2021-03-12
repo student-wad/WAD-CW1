@@ -1,4 +1,5 @@
 ﻿using eZone.DAL.DBO;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,34 +14,40 @@ namespace eZone.DAL.Repositories
         {
         }
 
-        public Task CreateAsync(Student entity)
+        public async Task CreateAsync(Student entity)
         {
-            throw new NotImplementedException();
+            _context.Add(entity);
+            await _context.SaveChangesAsync();
         }
 
-        public Task DeleteAsync(int id)
+        public async Task DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var student = await _context.Students
+                .Include(s => s.Group)
+                .FirstOrDefaultAsync(m => m.Id == id);
         }
 
         public bool Exists(int id)
         {
-            throw new NotImplementedException();
+            return _context.Students.Any(e => e.Id == id);
         }
 
-        public Task<List<Student>> GetAllAsync()
+        public async Task<List<Student>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _context.Students.Include(s => s.Group).ToListAsync();
         }
 
-        public Task<Student> GetByIdAsync(int id)
+        public async Task<Student> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Students
+                .Include(s => s.Group)
+                .FirstOrDefaultAsync(m => m.Id == id);
         }
 
-        public Task UpdateAsync(Student entity)
+        public async Task UpdateAsync(Student entity)
         {
-            throw new NotImplementedException();
+            _context.Update(entity);
+            await _context.SaveChangesAsync();
         }
     }
 }
