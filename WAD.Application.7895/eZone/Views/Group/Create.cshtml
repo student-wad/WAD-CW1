@@ -14,17 +14,23 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="GroupLevel" class="control-label"></label>
-                <select asp-for="GroupLevel" class="form-control"></select>
+                <select asp-for="GroupLevel" asp-items="Html.GetEnumSelectList<eZone.DAL.DBO.GroupLevel>()" class="form-control">
+                    <options>Select a Group Level</options>
+                </select>
                 <span asp-validation-for="GroupLevel" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="LessonDays" class="control-label"></label>
-                <select asp-for="LessonDays" class="form-control"></select>
+                <select asp-for="LessonDays" asp-items="Html.GetEnumSelectList<eZone.DAL.DBO.GroupDays>()" class="form-control">
+                    <options>Select Lesson Days</options>
+                </select>
                 <span asp-validation-for="LessonDays" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="GroupTime" class="control-label"></label>
-                <select asp-for="GroupTime" class="form-control"></select>
+                <select asp-for="GroupTime" asp-items="Html.GetEnumSelectList<eZone.DAL.DBO.GroupTime>()" class="form-control">
+                    <options>Select Lesson Time</options>
+                </select>
                 <span asp-validation-for="GroupTime" class="text-danger"></span>
             </div>
             <div class="form-group">
