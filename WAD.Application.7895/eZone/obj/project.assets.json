@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\WIUT\\Level 5\\WAD\\CW\\WAD\\WAD.Application.7895\\eZone\\eZone.csproj",
+      "projectUniqueName": "D:\\WIUT\\Level 5\\WAD\\CW\\Original\\WAD.Application.7895\\eZone\\eZone.csproj",
       "projectName": "eZone",
-      "projectPath": "D:\\WIUT\\Level 5\\WAD\\CW\\WAD\\WAD.Application.7895\\eZone\\eZone.csproj",
+      "projectPath": "D:\\WIUT\\Level 5\\WAD\\CW\\Original\\WAD.Application.7895\\eZone\\eZone.csproj",
       "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-      "outputPath": "D:\\WIUT\\Level 5\\WAD\\CW\\WAD\\WAD.Application.7895\\eZone\\obj\\",
+      "outputPath": "D:\\WIUT\\Level 5\\WAD\\CW\\Original\\WAD.Application.7895\\eZone\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
