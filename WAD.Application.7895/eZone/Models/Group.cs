@@ -55,5 +55,7 @@ namespace eZone.Models
         public int NumOfStudents { get; set; }
 
         public int? CourseId { get; set; }
+        
+        public virtual Course Course { get; set; }        
     }
 }
