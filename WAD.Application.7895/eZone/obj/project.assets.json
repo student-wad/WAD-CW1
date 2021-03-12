@@ -2171,6 +2171,22 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XmlSerializer.dll": {}
         }
+      },
+      "eZone.DAL/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "5.0.4",
+          "Microsoft.EntityFrameworkCore.SqlServer": "5.0.4",
+          "Microsoft.EntityFrameworkCore.Sqlite": "5.0.4",
+          "Microsoft.VisualStudio.Web.CodeGeneration.Design": "5.0.2"
+        },
+        "compile": {
+          "bin/placeholder/eZone.DAL.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/eZone.DAL.dll": {}
+        }
       }
     }
   },
@@ -7422,6 +7438,11 @@
         "system.xml.xmlserializer.4.3.0.nupkg.sha512",
         "system.xml.xmlserializer.nuspec"
       ]
+    },
+    "eZone.DAL/1.0.0": {
+      "type": "project",
+      "path": "../eZone.DAL/eZone.DAL.csproj",
+      "msbuildProject": "../eZone.DAL/eZone.DAL.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -7430,7 +7451,8 @@
       "Microsoft.EntityFrameworkCore.SqlServer >= 5.0.4",
       "Microsoft.EntityFrameworkCore.Sqlite >= 5.0.4",
       "Microsoft.EntityFrameworkCore.Tools >= 5.0.4",
-      "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 5.0.2"
+      "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 5.0.2",
+      "eZone.DAL >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -7463,7 +7485,11 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\user\\Source\\Repos\\WAD-CW1\\WAD.Application.7895\\eZone.DAL\\eZone.DAL.csproj": {
+              "projectPath": "C:\\Users\\user\\Source\\Repos\\WAD-CW1\\WAD.Application.7895\\eZone.DAL\\eZone.DAL.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
