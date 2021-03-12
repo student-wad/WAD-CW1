@@ -21,5 +21,7 @@ namespace eZone.Models
         [Range(7.5, 8.5)]
         [DisplayName("IELTS Score")]
         public double IELTS_Score { get; set; }
+
+        public virtual ICollection<Group> Group { get; set; }
     }
 }
