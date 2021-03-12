@@ -15,6 +15,8 @@ namespace eZone.Controllers
     public class GroupController : Controller
     {
         private readonly IRepository<Group> _groupRepo;
+        private readonly IRepository<Course> _courseRepo;
+        private readonly IRepository<Teacher> _teacherRepo;
 
         public GroupController(IRepository<Group> groupRepo)
         {
@@ -47,8 +49,8 @@ namespace eZone.Controllers
         // GET: Group/Create
         public async Task<IActionResult> Create()
         {
-            ViewData["CourseId"] = new SelectList(await _groupRepo.GetAllAsync(), "Id", "CourseDuration");
-            ViewData["TeacherId"] = new SelectList(await _groupRepo.GetAllAsync(), "Id", "Email");
+            ViewData["CourseId"] = new SelectList(await _courseRepo.GetAllAsync(), "Id", "CourseDuration");
+            ViewData["TeacherId"] = new SelectList(await _teacherRepo.GetAllAsync(), "Id", "Email");
             return View();
         }
 
@@ -64,8 +66,8 @@ namespace eZone.Controllers
                 await _groupRepo.CreateAsync(group);
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CourseId"] = new SelectList(await _groupRepo.GetAllAsync(), "Id", "CourseDuration", group.CourseId);
-            ViewData["TeacherId"] = new SelectList(await _groupRepo.GetAllAsync(), "Id", "Email", group.TeacherId);
+            ViewData["CourseId"] = new SelectList(await _courseRepo.GetAllAsync(), "Id", "CourseDuration", group.CourseId);
+            ViewData["TeacherId"] = new SelectList(await _teacherRepo.GetAllAsync(), "Id", "Email", group.TeacherId);
             return View(group);
         }
 
@@ -82,8 +84,8 @@ namespace eZone.Controllers
             {
                 return NotFound();
             }
-            ViewData["CourseId"] = new SelectList(await _groupRepo.GetAllAsync(), "Id", "CourseDuration", group.CourseId);
-            ViewData["TeacherId"] = new SelectList(await _groupRepo.GetAllAsync(), "Id", "Email", group.TeacherId);
+            ViewData["CourseId"] = new SelectList(await _courseRepo.GetAllAsync(), "Id", "CourseDuration", group.CourseId);
+            ViewData["TeacherId"] = new SelectList(await _teacherRepo.GetAllAsync(), "Id", "Email", group.TeacherId);
             return View(group);
         }
 
@@ -118,8 +120,8 @@ namespace eZone.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CourseId"] = new SelectList(await _groupRepo.GetAllAsync(), "Id", "CourseDuration", group.CourseId);
-            ViewData["TeacherId"] = new SelectList(await _groupRepo.GetAllAsync(), "Id", "Email", group.TeacherId);
+            ViewData["CourseId"] = new SelectList(await _courseRepo.GetAllAsync(), "Id", "CourseDuration", group.CourseId);
+            ViewData["TeacherId"] = new SelectList(await _teacherRepo.GetAllAsync(), "Id", "Email", group.TeacherId);
             return View(group);
         }
 
