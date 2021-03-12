@@ -35,6 +35,6 @@ namespace eZone.Models
         [Range(0, float.MaxValue)]
         public float Fee { get; set; }
 
-        public virtual ICollection<Group> Groups { get; set; }
+        public virtual ICollection<Group> Group { get; set; }
     }
 }
