@@ -7,8 +7,24 @@ using System.Threading.Tasks;
 
 namespace eZone.Models
 {
-    public class Teacher:Person
+    public class Teacher
     {
+        [Range(0, int.MaxValue)]
+        public int Id { get; set; }
+
+        [Required]
+        [MinLength(2)]
+        [DisplayName("First Name")]
+        public int FirstName { get; set; }
+
+        [Required]
+        [MinLength(2)]
+        [DisplayName("Last Name")]
+        public int LastName { get; set; }
+
+        [Required]
+        [Phone]
+        public string Phone { get; set; }
         [Required]
         [DisplayName("Date of birth")]
         public DateTime DoB { get; set; }        
