@@ -10,7 +10,7 @@ using eZone.DAL;
 namespace eZone.DAL.Migrations
 {
     [DbContext(typeof(eZoneDbContext))]
-    [Migration("20210312054734_init")]
+    [Migration("20210312202217_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -94,14 +94,16 @@ namespace eZone.DAL.Migrations
                     b.Property<DateTime>("FirstLesson")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("FirstName")
-                        .HasColumnType("int");
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("GroupId")
                         .HasColumnType("int");
 
-                    b.Property<int>("LastName")
-                        .HasColumnType("int");
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PaymentStatus")
                         .HasColumnType("int");
@@ -131,14 +133,16 @@ namespace eZone.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("FirstName")
-                        .HasColumnType("int");
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("IELTS_Score")
                         .HasColumnType("float");
 
-                    b.Property<int>("LastName")
-                        .HasColumnType("int");
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
                         .IsRequired()

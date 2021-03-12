@@ -15,12 +15,12 @@ namespace eZone.DAL.DBO
         [Required]
         [MinLength(2)]
         [DisplayName("First Name")]
-        public int FirstName { get; set; }
+        public string FirstName { get; set; }
 
         [Required]
         [MinLength(2)]
         [DisplayName("Last Name")]
-        public int LastName { get; set; }
+        public string LastName { get; set; }
 
         [Required]
         [Phone]
