@@ -61,5 +61,7 @@ namespace eZone.Models
         public virtual Course Course { get; set; }
         
         public virtual Teacher Teacher { get; set; }
+
+        public virtual ICollection<Student> Student { get; set; }
     }
 }

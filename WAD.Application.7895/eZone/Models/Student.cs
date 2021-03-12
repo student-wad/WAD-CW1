@@ -23,5 +23,9 @@ namespace eZone.Models
         [Required]
         [DisplayName("Payment Status")]
         public PaymentStatus PaymentStatus { get; set; }
+
+        public int? GroupId { get; set; }
+
+        public virtual Group Group { get; set; }
     }
 }
