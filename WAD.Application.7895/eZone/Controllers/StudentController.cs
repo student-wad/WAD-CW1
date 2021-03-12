@@ -7,23 +7,24 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using eZone.DAL;
 using eZone.Models;
+using eZone.DAL.Repositories;
+using eZone.DAL.DBO;
 
 namespace eZone.Controllers
 {
     public class StudentController : Controller
     {
-        private readonly eZoneDbContext _context;
+        private readonly IRepository<Student> _studentRepo;
 
-        public StudentController(eZoneDbContext context)
+        public StudentController(IRepository<Student> studentRepo)
         {
-            _context = context;
+            _studentRepo = studentRepo;
         }
 
         // GET: Student
         public async Task<IActionResult> Index()
         {
-            var eZoneDbContext = _context.Students.Include(s => s.Group);
-            return View(await eZoneDbContext.ToListAsync());
+            return View(await _studentRepo.GetAllAsync());
         }
 
         // GET: Student/Details/5
@@ -34,9 +35,7 @@ namespace eZone.Controllers
                 return NotFound();
             }
 
-            var student = await _context.Students
-                .Include(s => s.Group)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var student = await _studentRepo.GetByIdAsync(id.Value);
             if (student == null)
             {
                 return NotFound();
@@ -46,9 +45,9 @@ namespace eZone.Controllers
         }
 
         // GET: Student/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewData["GroupId"] = new SelectList(_context.Groups, "Id", "Id");
+            ViewData["GroupId"] = new SelectList(await _studentRepo.GetAllAsync(), "Id", "Id");
             return View();
         }
 
@@ -61,11 +60,10 @@ namespace eZone.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(student);
-                await _context.SaveChangesAsync();
+                await _studentRepo.CreateAsync(student);
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["GroupId"] = new SelectList(_context.Groups, "Id", "Id", student.GroupId);
+            ViewData["GroupId"] = new SelectList(await _studentRepo.GetAllAsync(), "Id", "Id", student.GroupId);
             return View(student);
         }
 
@@ -77,12 +75,12 @@ namespace eZone.Controllers
                 return NotFound();
             }
 
-            var student = await _context.Students.FindAsync(id);
+            var student = await _studentRepo.GetByIdAsync(id.Value);
             if (student == null)
             {
                 return NotFound();
             }
-            ViewData["GroupId"] = new SelectList(_context.Groups, "Id", "Id", student.GroupId);
+            ViewData["GroupId"] = new SelectList(await _studentRepo.GetAllAsync(), "Id", "Id", student.GroupId);
             return View(student);
         }
 
@@ -102,12 +100,11 @@ namespace eZone.Controllers
             {
                 try
                 {
-                    _context.Update(student);
-                    await _context.SaveChangesAsync();
+                    await _studentRepo.UpdateAsync(student);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!StudentExists(student.Id))
+                    if (!_studentRepo.Exists(student.Id))
                     {
                         return NotFound();
                     }
@@ -118,7 +115,7 @@ namespace eZone.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["GroupId"] = new SelectList(_context.Groups, "Id", "Id", student.GroupId);
+            ViewData["GroupId"] = new SelectList(await _studentRepo.GetAllAsync(), "Id", "Id", student.GroupId);
             return View(student);
         }
 
@@ -130,9 +127,7 @@ namespace eZone.Controllers
                 return NotFound();
             }
 
-            var student = await _context.Students
-                .Include(s => s.Group)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var student = await _studentRepo.GetByIdAsync(id.Value);
             if (student == null)
             {
                 return NotFound();
@@ -146,15 +141,9 @@ namespace eZone.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var student = await _context.Students.FindAsync(id);
-            _context.Students.Remove(student);
-            await _context.SaveChangesAsync();
+            
+            await _studentRepo.DeleteAsync(id);
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool StudentExists(int id)
-        {
-            return _context.Students.Any(e => e.Id == id);
         }
     }
 }
