@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace eZone.Models
 {
-    public class Teacher
+    public class Teacher:Person
     {
         [Required]
         [DisplayName("Date of birth")]

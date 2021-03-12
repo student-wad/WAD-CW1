@@ -13,7 +13,7 @@ namespace eZone.Models
         Not_Paid
     }
 
-    public class Student
+    public class Student:Person
     {
        
         [Required]
