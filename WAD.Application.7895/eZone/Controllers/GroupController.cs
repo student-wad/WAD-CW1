@@ -51,9 +51,10 @@ namespace eZone.Controllers
         // GET: Group/Create
         public async Task<IActionResult> Create()
         {
-            ViewData["CourseId"] = new SelectList(await _courseRepo.GetAllAsync(), "Id", "CourseDuration");
-            ViewData["TeacherId"] = new SelectList(await _teacherRepo.GetAllAsync(), "Id", "Email");
-            return View();
+            var groupViewModel = new GroupViewModel();
+            groupViewModel.Courses = new SelectList(await _courseRepo.GetAllAsync(), "Id", "CourseDuration");
+            groupViewModel.Teachers = new SelectList(await _teacherRepo.GetAllAsync(), "Id", "Email");           
+            return View(groupViewModel);
         }
 
         // POST: Group/Create
@@ -61,15 +62,15 @@ namespace eZone.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,GroupLevel,LessonDays,GroupTime,StartDate,NumOfStudents,CourseId,TeacherId")] Group group)
+        public async Task<IActionResult> Create([Bind("Id,GroupLevel,LessonDays,GroupTime,StartDate,NumOfStudents,CourseId,TeacherId")] GroupViewModel group)
         {
             if (ModelState.IsValid)
             {
                 await _groupRepo.CreateAsync(group);
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CourseId"] = new SelectList(await _courseRepo.GetAllAsync(), "Id", "CourseDuration", group.CourseId);
-            ViewData["TeacherId"] = new SelectList(await _teacherRepo.GetAllAsync(), "Id", "Email", group.TeacherId);
+            group.Courses = new SelectList(await _courseRepo.GetAllAsync(), "Id", "CourseDuration", group.CourseId);
+            group.Teachers = new SelectList(await _teacherRepo.GetAllAsync(), "Id", "Email", group.TeacherId);
             return View(group);
         }
 
@@ -86,9 +87,11 @@ namespace eZone.Controllers
             {
                 return NotFound();
             }
-            ViewData["CourseId"] = new SelectList(await _courseRepo.GetAllAsync(), "Id", "CourseDuration", group.CourseId);
-            ViewData["TeacherId"] = new SelectList(await _teacherRepo.GetAllAsync(), "Id", "Email", group.TeacherId);
-            return View(group);
+            var groupViewModel = new GroupViewModel();
+            groupViewModel.CopyFromGroup(group);
+            groupViewModel.Courses = new SelectList(await _courseRepo.GetAllAsync(), "Id", "CourseDuration", group.CourseId);
+            groupViewModel.Teachers = new SelectList(await _teacherRepo.GetAllAsync(), "Id", "Email", group.TeacherId);            
+            return View(groupViewModel);
         }
 
         // POST: Group/Edit/5
@@ -96,7 +99,7 @@ namespace eZone.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,GroupLevel,LessonDays,GroupTime,StartDate,NumOfStudents,CourseId,TeacherId")] Group group)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,GroupLevel,LessonDays,GroupTime,StartDate,NumOfStudents,CourseId,TeacherId")] GroupViewModel group)
         {
             if (id != group.Id)
             {
@@ -122,8 +125,8 @@ namespace eZone.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CourseId"] = new SelectList(await _courseRepo.GetAllAsync(), "Id", "CourseDuration", group.CourseId);
-            ViewData["TeacherId"] = new SelectList(await _teacherRepo.GetAllAsync(), "Id", "Email", group.TeacherId);
+            group.Courses = new SelectList(await _courseRepo.GetAllAsync(), "Id", "CourseDuration", group.CourseId);
+            group.Teachers = new SelectList(await _teacherRepo.GetAllAsync(), "Id", "Email", group.TeacherId);
             return View(group);
         }
 
