@@ -7,23 +7,24 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using eZone.DAL;
 using eZone.Models;
+using eZone.DAL.DBO;
+using eZone.DAL.Repositories;
 
 namespace eZone.Controllers
 {
     public class GroupController : Controller
     {
-        private readonly eZoneDbContext _context;
+        private readonly IRepository<Group> _groupRepo;
 
-        public GroupController(eZoneDbContext context)
+        public GroupController(IRepository<Group> groupRepo)
         {
-            _context = context;
+            _groupRepo = groupRepo;
         }
 
         // GET: Group
         public async Task<IActionResult> Index()
         {
-            var eZoneDbContext = _context.Groups.Include(m => m.Course).Include(m => m.Teacher);
-            return View(await eZoneDbContext.ToListAsync());
+            return View(await _groupRepo.GetAllAsync());
         }
 
         // GET: Group/Details/5
@@ -34,10 +35,7 @@ namespace eZone.Controllers
                 return NotFound();
             }
 
-            var group = await _context.Groups
-                .Include(m => m.Course)
-                .Include(m => m.Teacher)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var group = await _groupRepo.GetByIdAsync(id.Value);
             if (group == null)
             {
                 return NotFound();
@@ -47,10 +45,10 @@ namespace eZone.Controllers
         }
 
         // GET: Group/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewData["CourseId"] = new SelectList(_context.Courses, "Id", "CourseDuration");
-            ViewData["TeacherId"] = new SelectList(_context.Teachers, "Id", "Email");
+            ViewData["CourseId"] = new SelectList(await _groupRepo.GetAllAsync(), "Id", "CourseDuration");
+            ViewData["TeacherId"] = new SelectList(await _groupRepo.GetAllAsync(), "Id", "Email");
             return View();
         }
 
@@ -63,12 +61,11 @@ namespace eZone.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(group);
-                await _context.SaveChangesAsync();
+                await _groupRepo.CreateAsync(group);
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CourseId"] = new SelectList(_context.Courses, "Id", "CourseDuration", group.CourseId);
-            ViewData["TeacherId"] = new SelectList(_context.Teachers, "Id", "Email", group.TeacherId);
+            ViewData["CourseId"] = new SelectList(await _groupRepo.GetAllAsync(), "Id", "CourseDuration", group.CourseId);
+            ViewData["TeacherId"] = new SelectList(await _groupRepo.GetAllAsync(), "Id", "Email", group.TeacherId);
             return View(group);
         }
 
@@ -80,13 +77,13 @@ namespace eZone.Controllers
                 return NotFound();
             }
 
-            var group = await _context.Groups.FindAsync(id);
+            var group = await _groupRepo.GetByIdAsync(id.Value);
             if (group == null)
             {
                 return NotFound();
             }
-            ViewData["CourseId"] = new SelectList(_context.Courses, "Id", "CourseDuration", group.CourseId);
-            ViewData["TeacherId"] = new SelectList(_context.Teachers, "Id", "Email", group.TeacherId);
+            ViewData["CourseId"] = new SelectList(await _groupRepo.GetAllAsync(), "Id", "CourseDuration", group.CourseId);
+            ViewData["TeacherId"] = new SelectList(await _groupRepo.GetAllAsync(), "Id", "Email", group.TeacherId);
             return View(group);
         }
 
@@ -106,12 +103,11 @@ namespace eZone.Controllers
             {
                 try
                 {
-                    _context.Update(group);
-                    await _context.SaveChangesAsync();
+                    await _groupRepo.UpdateAsync(group);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!GroupExists(group.Id))
+                    if (_groupRepo.Exists(group.Id))
                     {
                         return NotFound();
                     }
@@ -122,8 +118,8 @@ namespace eZone.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CourseId"] = new SelectList(_context.Courses, "Id", "CourseDuration", group.CourseId);
-            ViewData["TeacherId"] = new SelectList(_context.Teachers, "Id", "Email", group.TeacherId);
+            ViewData["CourseId"] = new SelectList(await _groupRepo.GetAllAsync(), "Id", "CourseDuration", group.CourseId);
+            ViewData["TeacherId"] = new SelectList(await _groupRepo.GetAllAsync(), "Id", "Email", group.TeacherId);
             return View(group);
         }
 
@@ -135,10 +131,7 @@ namespace eZone.Controllers
                 return NotFound();
             }
 
-            var group = await _context.Groups
-                .Include(m => m.Course)
-                .Include(m => m.Teacher)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var group = await _groupRepo.GetByIdAsync(id.Value);
             if (group == null)
             {
                 return NotFound();
@@ -152,15 +145,8 @@ namespace eZone.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var group = await _context.Groups.FindAsync(id);
-            _context.Groups.Remove(group);
-            await _context.SaveChangesAsync();
+            await _groupRepo.DeleteAsync(id);
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool GroupExists(int id)
-        {
-            return _context.Groups.Any(e => e.Id == id);
-        }
+        }        
     }
 }
