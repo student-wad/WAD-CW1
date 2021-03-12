@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace eZone.Models
 {
-    public class Person
+    public abstract class Person
     {
         [Range(0, int.MaxValue)]
         public int Id { get; set; }
