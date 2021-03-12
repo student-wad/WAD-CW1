@@ -1,4 +1,6 @@
 using eZone.DAL;
+using eZone.DAL.Repositories;
+using eZone.DAL.DBO;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -9,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace eZone
@@ -25,6 +28,10 @@ namespace eZone
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IRepository<DAL.DBO.Group>, GroupRepo>();
+            services.AddScoped<IRepository<Teacher>, TeacherRepo>();
+            services.AddScoped<IRepository<Student>, StudentRepo>();
+            services.AddScoped<IRepository<Course>, CourseRepo>();
             services.AddControllersWithViews();
             services.AddDbContext<eZoneDbContext>(
                options => options.UseSqlServer(
