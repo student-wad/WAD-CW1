@@ -1,4 +1,5 @@
 ﻿using eZone.DAL.DBO;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,34 +14,38 @@ namespace eZone.DAL.Repositories
         {
         }
 
-        public Task CreateAsync(Teacher entity)
+        public async Task CreateAsync(Teacher entity)
         {
-            throw new NotImplementedException();
+            _context.Add(entity);
+            await _context.SaveChangesAsync();
         }
 
-        public Task DeleteAsync(int id)
+        public async Task DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var teacher = await _context.Teachers
+                 .FirstOrDefaultAsync(m => m.Id == id);
         }
 
         public bool Exists(int id)
         {
-            throw new NotImplementedException();
+            return _context.Teachers.Any(e => e.Id == id);
         }
 
-        public Task<List<Teacher>> GetAllAsync()
+        public async Task<List<Teacher>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _context.Teachers.ToListAsync();
         }
 
-        public Task<Teacher> GetByIdAsync(int id)
+        public async Task<Teacher> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Teachers
+                .FirstOrDefaultAsync(m => m.Id == id);
         }
 
-        public Task UpdateAsync(Teacher entity)
+        public async Task UpdateAsync(Teacher entity)
         {
-            throw new NotImplementedException();
+            _context.Update(entity);
+            await _context.SaveChangesAsync();
         }
     }
 }
