@@ -52,8 +52,8 @@ namespace eZone.Controllers
         public async Task<IActionResult> Create()
         {
             var groupViewModel = new GroupViewModel();
-            groupViewModel.Courses = new SelectList(await _courseRepo.GetAllAsync(), "Id", "CourseDuration");
-            groupViewModel.Teachers = new SelectList(await _teacherRepo.GetAllAsync(), "Id", "Email");           
+            groupViewModel.Courses = new SelectList(await _courseRepo.GetAllAsync(), "Id", "CourseName");
+            groupViewModel.Teachers = new SelectList(await _teacherRepo.GetAllAsync(), "Id", "FirstName");           
             return View(groupViewModel);
         }
 
@@ -69,8 +69,8 @@ namespace eZone.Controllers
                 await _groupRepo.CreateAsync(group);
                 return RedirectToAction(nameof(Index));
             }
-            group.Courses = new SelectList(await _courseRepo.GetAllAsync(), "Id", "CourseDuration", group.CourseId);
-            group.Teachers = new SelectList(await _teacherRepo.GetAllAsync(), "Id", "Email", group.TeacherId);
+            group.Courses = new SelectList(await _courseRepo.GetAllAsync(), "Id", "CourseName", group.CourseId);
+            group.Teachers = new SelectList(await _teacherRepo.GetAllAsync(), "Id", "FirstName", group.TeacherId);
             return View(group);
         }
 
@@ -89,8 +89,8 @@ namespace eZone.Controllers
             }
             var groupViewModel = new GroupViewModel();
             groupViewModel.CopyFromGroup(group);
-            groupViewModel.Courses = new SelectList(await _courseRepo.GetAllAsync(), "Id", "CourseDuration", group.CourseId);
-            groupViewModel.Teachers = new SelectList(await _teacherRepo.GetAllAsync(), "Id", "Email", group.TeacherId);            
+            groupViewModel.Courses = new SelectList(await _courseRepo.GetAllAsync(), "Id", "CourseName", group.CourseId);
+            groupViewModel.Teachers = new SelectList(await _teacherRepo.GetAllAsync(), "Id", "FirstName", group.TeacherId);            
             return View(groupViewModel);
         }
 
@@ -125,8 +125,8 @@ namespace eZone.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            group.Courses = new SelectList(await _courseRepo.GetAllAsync(), "Id", "CourseDuration", group.CourseId);
-            group.Teachers = new SelectList(await _teacherRepo.GetAllAsync(), "Id", "Email", group.TeacherId);
+            group.Courses = new SelectList(await _courseRepo.GetAllAsync(), "Id", "CourseName", group.CourseId);
+            group.Teachers = new SelectList(await _teacherRepo.GetAllAsync(), "Id", "FirstName", group.TeacherId);
             return View(group);
         }
 
