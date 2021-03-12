@@ -18,9 +18,11 @@ namespace eZone.Controllers
         private readonly IRepository<Course> _courseRepo;
         private readonly IRepository<Teacher> _teacherRepo;
 
-        public GroupController(IRepository<Group> groupRepo)
+        public GroupController(IRepository<Group> groupRepo, IRepository<Course> courseRepo, IRepository<Teacher> teacherRepo)
         {
             _groupRepo = groupRepo;
+            _courseRepo = courseRepo;
+            _teacherRepo = teacherRepo;
         }
 
         // GET: Group
