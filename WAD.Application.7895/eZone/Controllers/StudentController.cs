@@ -15,10 +15,12 @@ namespace eZone.Controllers
     public class StudentController : Controller
     {
         private readonly IRepository<Student> _studentRepo;
+        private readonly IRepository<Group> _groupRepo;
 
-        public StudentController(IRepository<Student> studentRepo)
+        public StudentController(IRepository<Student> studentRepo, IRepository<Group> groupRepo)
         {
             _studentRepo = studentRepo;
+            _groupRepo = groupRepo;
         }
 
         // GET: Student
@@ -47,7 +49,7 @@ namespace eZone.Controllers
         // GET: Student/Create
         public async Task<IActionResult> Create()
         {
-            ViewData["GroupId"] = new SelectList(await _studentRepo.GetAllAsync(), "Id", "Id");
+            ViewData["GroupId"] = new SelectList(await _groupRepo.GetAllAsync(), "Id", "Id");
             return View();
         }
 
@@ -63,7 +65,7 @@ namespace eZone.Controllers
                 await _studentRepo.CreateAsync(student);
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["GroupId"] = new SelectList(await _studentRepo.GetAllAsync(), "Id", "Id", student.GroupId);
+            ViewData["GroupId"] = new SelectList(await _groupRepo.GetAllAsync(), "Id", "Id", student.GroupId);
             return View(student);
         }
 
@@ -80,7 +82,7 @@ namespace eZone.Controllers
             {
                 return NotFound();
             }
-            ViewData["GroupId"] = new SelectList(await _studentRepo.GetAllAsync(), "Id", "Id", student.GroupId);
+            ViewData["GroupId"] = new SelectList(await _groupRepo.GetAllAsync(), "Id", "Id", student.GroupId);
             return View(student);
         }
 
@@ -115,7 +117,7 @@ namespace eZone.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["GroupId"] = new SelectList(await _studentRepo.GetAllAsync(), "Id", "Id", student.GroupId);
+            ViewData["GroupId"] = new SelectList(await _groupRepo.GetAllAsync(), "Id", "Id", student.GroupId);
             return View(student);
         }
 
