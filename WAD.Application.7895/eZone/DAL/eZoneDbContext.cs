@@ -16,9 +16,7 @@ namespace eZone.DAL
 
         public virtual DbSet<Course> Courses { get; set; }
 
-        public virtual DbSet<Group> Groups { get; set; }
-
-        public virtual DbSet<Person> People { get; set; }
+        public virtual DbSet<Group> Groups { get; set; }        
 
         public virtual DbSet<Student> Students { get; set; }
 
