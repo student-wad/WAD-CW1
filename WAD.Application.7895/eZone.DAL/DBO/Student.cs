@@ -5,9 +5,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace eZone.Models
+namespace eZone.DAL.DBO
 {
-    public class Teacher
+    public class Student
     {
         [Range(0, int.MaxValue)]
         public int Id { get; set; }
@@ -25,19 +25,17 @@ namespace eZone.Models
         [Required]
         [Phone]
         public string Phone { get; set; }
-        [Required]
-        [DisplayName("Date of birth")]
-        public DateTime DoB { get; set; }        
 
         [Required]
-        [EmailAddress]
-        public string Email { get; set; }
+        [DisplayName("First Lesson")]
+        public DateTime FirstLesson { get; set; }
 
         [Required]
-        [Range(7.5, 8.5)]
-        [DisplayName("IELTS Score")]
-        public double IELTS_Score { get; set; }
+        [DisplayName("Payment Status")]
+        public PaymentStatus PaymentStatus { get; set; }
 
-        public virtual ICollection<Group> Group { get; set; }
+        public int? GroupId { get; set; }
+
+        public virtual Group Group { get; set; }
     }
 }

@@ -5,10 +5,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace eZone.Models
+namespace eZone.DAL.DBO
 {
-    
-    
     public class Group
     {
         [Range(0, int.MaxValue)]

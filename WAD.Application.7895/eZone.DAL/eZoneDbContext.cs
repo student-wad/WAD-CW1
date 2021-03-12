@@ -1,4 +1,4 @@
-﻿using eZone.Models;
+﻿using eZone.DAL.DBO;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
