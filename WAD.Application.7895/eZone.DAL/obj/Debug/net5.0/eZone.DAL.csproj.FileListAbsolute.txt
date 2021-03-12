@@ -1,0 +1,5 @@
+C:\Users\user\Source\Repos\WAD-CW1\WAD.Application.7895\eZone.DAL\obj\Debug\net5.0\eZone.DAL.csprojAssemblyReference.cache
+C:\Users\user\Source\Repos\WAD-CW1\WAD.Application.7895\eZone.DAL\obj\Debug\net5.0\eZone.DAL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user\Source\Repos\WAD-CW1\WAD.Application.7895\eZone.DAL\obj\Debug\net5.0\eZone.DAL.AssemblyInfoInputs.cache
+C:\Users\user\Source\Repos\WAD-CW1\WAD.Application.7895\eZone.DAL\obj\Debug\net5.0\eZone.DAL.AssemblyInfo.cs
+C:\Users\user\Source\Repos\WAD-CW1\WAD.Application.7895\eZone.DAL\obj\Debug\net5.0\eZone.DAL.csproj.CoreCompileInputs.cache
