@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using eZone.DAL;
 
-namespace eZone.Migrations
+namespace eZone.DAL.Migrations
 {
     [DbContext(typeof(eZoneDbContext))]
     partial class eZoneDbContextModelSnapshot : ModelSnapshot
@@ -19,7 +19,7 @@ namespace eZone.Migrations
                 .HasAnnotation("ProductVersion", "5.0.4")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("eZone.Models.Course", b =>
+            modelBuilder.Entity("eZone..DAL.DBO.Course", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -45,7 +45,7 @@ namespace eZone.Migrations
                     b.ToTable("Courses");
                 });
 
-            modelBuilder.Entity("eZone.Models.Group", b =>
+            modelBuilder.Entity("eZone.DAL.DBO.Group", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -82,7 +82,7 @@ namespace eZone.Migrations
                     b.ToTable("Groups");
                 });
 
-            modelBuilder.Entity("eZone.Models.Student", b =>
+            modelBuilder.Entity("eZone.DAL.DBO.Student", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -115,7 +115,7 @@ namespace eZone.Migrations
                     b.ToTable("Students");
                 });
 
-            modelBuilder.Entity("eZone.Models.Teacher", b =>
+            modelBuilder.Entity("eZone.DAL.DBO.Teacher", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -147,13 +147,13 @@ namespace eZone.Migrations
                     b.ToTable("Teachers");
                 });
 
-            modelBuilder.Entity("eZone.Models.Group", b =>
+            modelBuilder.Entity("eZone.DAL.DBO.Group", b =>
                 {
-                    b.HasOne("eZone.Models.Course", "Course")
+                    b.HasOne("eZone.DAL.DBO.Course", "Course")
                         .WithMany("Group")
                         .HasForeignKey("CourseId");
 
-                    b.HasOne("eZone.Models.Teacher", "Teacher")
+                    b.HasOne("eZone.DAL.DBO.Teacher", "Teacher")
                         .WithMany("Group")
                         .HasForeignKey("TeacherId");
 
@@ -162,26 +162,26 @@ namespace eZone.Migrations
                     b.Navigation("Teacher");
                 });
 
-            modelBuilder.Entity("eZone.Models.Student", b =>
+            modelBuilder.Entity("eZone.DAL.DBO.Student", b =>
                 {
-                    b.HasOne("eZone.Models.Group", "Group")
+                    b.HasOne("eZone.DAL.DBO.Group", "Group")
                         .WithMany("Student")
                         .HasForeignKey("GroupId");
 
                     b.Navigation("Group");
                 });
 
-            modelBuilder.Entity("eZone.Models.Course", b =>
+            modelBuilder.Entity("eZone.DAL.DBO.Course", b =>
                 {
                     b.Navigation("Group");
                 });
 
-            modelBuilder.Entity("eZone.Models.Group", b =>
+            modelBuilder.Entity("eZone.DAL.DBO.Group", b =>
                 {
                     b.Navigation("Student");
                 });
 
-            modelBuilder.Entity("eZone.Models.Teacher", b =>
+            modelBuilder.Entity("eZone.DAL.DBO.Teacher", b =>
                 {
                     b.Navigation("Group");
                 });
