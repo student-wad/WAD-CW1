@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -29,16 +31,27 @@ namespace eZone.Models
 
     public class Group
     {
+        [Range(0, int.MaxValue)]
         public int Id { get; set; }
 
+        [Required]
+        [DisplayName("Group Level")]
         public GroupLevel GroupLevel { get; set; }
 
+        [Required]
+        [DisplayName("Lesson Days")]
         public GroupDays LessonDays { get; set; }
 
+        [Required]
+        [DisplayName("Group Time")]
         public GroupTime GroupTime { get; set; }
 
+        [Required]
+        [DisplayName("Start Date")]
         public DateTime StartDate { get; set; }
 
+        [Required]
+        [DisplayName("Number of Students")]
         public int NumOfStudents { get; set; }
     }
 }
