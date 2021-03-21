@@ -6,9 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using eZone.DAL;
-using eZone.Models;
-using eZone.DAL.Repositories;
 using eZone.DAL.DBO;
+using eZone.DAL.Repositories;
 
 namespace eZone.Controllers
 {
@@ -55,7 +54,7 @@ namespace eZone.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Phone,DoB,Email,IELTS_Score")] Teacher teacher)
+        public async Task<IActionResult> Create([Bind("DoB,Email,IELTS_Score,Id,FirstName,LastName,Phone")] Teacher teacher)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +85,7 @@ namespace eZone.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,Phone,DoB,Email,IELTS_Score")] Teacher teacher)
+        public async Task<IActionResult> Edit(int id, [Bind("DoB,Email,IELTS_Score,Id,FirstName,LastName,Phone")] Teacher teacher)
         {
             if (id != teacher.Id)
             {
@@ -139,6 +138,6 @@ namespace eZone.Controllers
         {
             await _teacherRepo.DeleteAsync(id);
             return RedirectToAction(nameof(Index));
-        }        
+        }
     }
 }

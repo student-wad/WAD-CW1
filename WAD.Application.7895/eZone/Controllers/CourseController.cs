@@ -6,9 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using eZone.DAL;
-using eZone.Models;
-using eZone.DAL.Repositories;
 using eZone.DAL.DBO;
+using eZone.DAL.Repositories;
 
 namespace eZone.Controllers
 {
@@ -136,9 +135,9 @@ namespace eZone.Controllers
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
-        {           
+        {
             await _courseRepo.DeleteAsync(id);
             return RedirectToAction(nameof(Index));
-        }        
+        }
     }
 }
