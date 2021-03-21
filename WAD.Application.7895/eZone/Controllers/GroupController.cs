@@ -62,7 +62,7 @@ namespace eZone.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,GroupLevel,LessonDays,GroupTime,StartDate,NumOfStudents,CourseId,TeacherId")] GroupViewModel group)
+        public async Task<IActionResult> Create([Bind("Id,GroupLevel,LessonDays,GroupTime,StartDate,GroupStatus,NumOfStudents,CourseId,TeacherId")] GroupViewModel group)
         {
             if (ModelState.IsValid)
             {
@@ -70,6 +70,8 @@ namespace eZone.Controllers
                 await _groupRepo.CreateAsync(group);
                 return RedirectToAction(nameof(Index));
             }
+
+            group.StartDate = DateTime.Now;
             group.Courses = new SelectList(await _courseRepo.GetAllAsync(), "Id", "CourseName", group.CourseId);
             group.Teachers = new SelectList(await _teacherRepo.GetAllAsync(), "Id", "FirstName", group.TeacherId);
             return View(group);
@@ -100,7 +102,7 @@ namespace eZone.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,GroupLevel,LessonDays,GroupTime,StartDate,NumOfStudents,CourseId,TeacherId")] GroupViewModel group)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,GroupLevel,LessonDays,GroupTime,StartDate,GroupStatus,NumOfStudents,CourseId,TeacherId")] GroupViewModel group)
         {
             if (id != group.Id)
             {

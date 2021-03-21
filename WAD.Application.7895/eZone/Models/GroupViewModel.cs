@@ -20,6 +20,7 @@ namespace eZone.Models
             LessonDays = g.LessonDays;
             GroupTime = g.GroupTime;
             StartDate = g.StartDate;
+            GroupStatus = g.GroupStatus;
             NumOfStudents = g.NumOfStudents;
             CourseId = g.CourseId;
             TeacherId = g.TeacherId;

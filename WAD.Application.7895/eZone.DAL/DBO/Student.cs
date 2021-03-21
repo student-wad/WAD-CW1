@@ -11,6 +11,7 @@ namespace eZone.DAL.DBO
     {
         [Required]
         [DisplayName("First Lesson")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FirstLesson { get; set; }
 
         [Required]

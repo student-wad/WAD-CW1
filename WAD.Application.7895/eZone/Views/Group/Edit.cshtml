@@ -40,6 +40,13 @@
                 <span asp-validation-for="StartDate" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="GroupStatus" class="control-label"></label>
+                <select asp-for="GroupStatus" asp-items="Html.GetEnumSelectList<eZone.DAL.DBO.GroupStatus>()" class="form-control">
+                    <options>Select Group Status</options>
+                </select>
+                <span asp-validation-for="GroupStatus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="NumOfStudents" class="control-label"></label>
                 <input asp-for="NumOfStudents" class="form-control" />
                 <span asp-validation-for="NumOfStudents" class="text-danger"></span>

@@ -20,15 +20,15 @@ namespace eZone.DAL.DBO
 
     public enum GroupTime
     {
-        [Display(Name ="9:00 - 11:00")]
+        [Display(Name ="9:00-11:00")]
         _9am,
-        [Display(Name ="11:00 - 13:00")]
+        [Display(Name ="11:00-13:00")]
         _11am,
-        [Display(Name ="15:00 - 17:00")]
+        [Display(Name ="15:00-17:00")]
         _3pm,
-        [Display(Name ="17:00 - 19:00")]
+        [Display(Name ="17:00-19:00")]
         _5pm,
-        [Display(Name ="19:00 - 21:00")]
+        [Display(Name ="19:00-21:00")]
         _7pm
     }
 
