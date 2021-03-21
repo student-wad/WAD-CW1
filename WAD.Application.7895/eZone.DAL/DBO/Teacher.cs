@@ -7,24 +7,8 @@ using System.Threading.Tasks;
 
 namespace eZone.DAL.DBO
 {
-    public class Teacher
-    {
-        [Range(0, int.MaxValue)]
-        public int Id { get; set; }
-
-        [Required]
-        [MinLength(2)]
-        [DisplayName("First Name")]
-        public string FirstName { get; set; }
-
-        [Required]
-        [MinLength(2)]
-        [DisplayName("Last Name")]
-        public string LastName { get; set; }
-
-        [Required]
-        [Phone]
-        public string Phone { get; set; }
+    public class Teacher:Person
+    {        
         [Required]
         [DisplayName("Date of birth")]
         public DateTime DoB { get; set; }        
