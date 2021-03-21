@@ -66,8 +66,25 @@ namespace eZone.Controllers
                 await _studentRepo.CreateAsync(student);
                 return RedirectToAction(nameof(Index));
             }
-            student.Groups = new SelectList(await _groupRepo.GetAllAsync(), "Id", "Id", student.GroupId);
-            return View(student);
+            var group = await _groupRepo.GetByIdAsync(student.GroupId.Value);
+
+            if (student.GroupId == group.Id)
+            {
+                group.NumOfStudents++;
+                await _groupRepo.UpdateAsync(group);                
+            }
+            
+            /*var groups = await _groupRepo.GetAllAsync();
+            foreach (var group in groups)
+            {
+                if (student.GroupId == group.Id)
+                {
+                    group.NumOfStudents++;
+                }                    
+                await _groupRepo.UpdateAsync(group);
+            }*/
+            student.Groups = new SelectList(await _groupRepo.GetAllAsync(), "Id", "Id", student.GroupId);           
+            return View(student);            
         }
 
         // GET: Student/Edit/5
