@@ -29,6 +29,10 @@ namespace eZone.DAL.DBO
         public DateTime StartDate { get; set; }
 
         [Required]
+        [DisplayName("Group Status")]
+        public GroupStatus GroupStatus { get; set; }
+
+        [Required]
         [DisplayName("Number of Students")]
         public int NumOfStudents { get; set; }
 

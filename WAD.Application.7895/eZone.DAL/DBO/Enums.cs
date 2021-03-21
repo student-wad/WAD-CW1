@@ -32,6 +32,12 @@ namespace eZone.DAL.DBO
         _7pm
     }
 
+    public enum GroupStatus
+    {
+        Available,
+        Full
+    }
+
     public enum PaymentStatus
     {
         Paid,
