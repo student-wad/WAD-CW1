@@ -22,8 +22,9 @@ namespace eZone.DAL.Repositories
 
         public async Task DeleteAsync(int id)
         {
-            var teacher = await _context.Teachers
-                 .FirstOrDefaultAsync(m => m.Id == id);
+            var teacher = await _context.Teachers.FindAsync(id);
+            _context.Teachers.Remove(teacher);
+            await _context.SaveChangesAsync();
         }
 
         public bool Exists(int id)
