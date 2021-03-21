@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
+
 
 namespace eZone.DAL.DBO
 {
     public enum GroupDays
     {
-        [Description("Mon/Wed/Fri")]
+        [Display(Name="Mon/Wed/Fri")]
         Odd,
-        [Description("Tue/Thu/Sat")]
+        [Display(Name ="Tue/Thu/Sat")]
         Even
     }
 
@@ -23,28 +20,29 @@ namespace eZone.DAL.DBO
 
     public enum GroupTime
     {
-        [Description("9:00 - 11:00")]
+        [Display(Name ="9:00 - 11:00")]
         _9am,
-        [Description("11:00 - 13:00")]
+        [Display(Name ="11:00 - 13:00")]
         _11am,
-        [Description("15:00 - 17:00")]
+        [Display(Name ="15:00 - 17:00")]
         _3pm,
-        [Description("17:00 - 19:00")]
+        [Display(Name ="17:00 - 19:00")]
         _5pm,
-        [Description("19:00 - 21:00")]
+        [Display(Name ="19:00 - 21:00")]
         _7pm
     }
 
     public enum PaymentStatus
     {
         Paid,
-        [Description("Not Paid")]
+        [Display(Name="Not Paid")]
         Not_Paid
     }
 
     public enum CourseLevel
     {
         IELTS,
+        [Display(Name = "General English")]
         GeneralEnglish
     }
 }
