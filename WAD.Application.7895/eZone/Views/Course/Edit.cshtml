@@ -15,9 +15,7 @@
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 <label asp-for="CourseLevel" class="control-label"></label>
-                <select asp-for="CourseLevel" asp-items="Html.GetEnumSelectList<eZone.DAL.DBO.CourseLevel>()" class="form-control">
-                    <options>Select a Course Level</options>
-                </select>
+                <select asp-for="CourseLevel" class="form-control"></select>
                 <span asp-validation-for="CourseLevel" class="text-danger"></span>
             </div>
             <div class="form-group">

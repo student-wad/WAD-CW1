@@ -1,4 +1,4 @@
-﻿@model eZone.Models.StudentViewModel
+﻿@model eZone.DAL.DBO.Student
 
 @{
     ViewData["Title"] = "Create";
@@ -13,6 +13,20 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
+                <label asp-for="FirstLesson" class="control-label"></label>
+                <input asp-for="FirstLesson" class="form-control" />
+                <span asp-validation-for="FirstLesson" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PaymentStatus" class="control-label"></label>
+                <select asp-for="PaymentStatus" class="form-control"></select>
+                <span asp-validation-for="PaymentStatus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GroupId" class="control-label"></label>
+                <select asp-for="GroupId" class ="form-control" asp-items="ViewBag.GroupId"></select>
+            </div>
+            <div class="form-group">
                 <label asp-for="FirstName" class="control-label"></label>
                 <input asp-for="FirstName" class="form-control" />
                 <span asp-validation-for="FirstName" class="text-danger"></span>
@@ -26,22 +40,6 @@
                 <label asp-for="Phone" class="control-label"></label>
                 <input asp-for="Phone" class="form-control" />
                 <span asp-validation-for="Phone" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FirstLesson" class="control-label"></label>
-                <input asp-for="FirstLesson" class="form-control" />
-                <span asp-validation-for="FirstLesson" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PaymentStatus" class="control-label"></label>
-                <select asp-for="PaymentStatus" asp-items="Html.GetEnumSelectList<eZone.DAL.DBO.PaymentStatus>()" class="form-control">
-                    <options>Select</options>
-                </select>
-                <span asp-validation-for="PaymentStatus" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="GroupId" class="control-label"></label>
-                <select asp-for="GroupId" class ="form-control" asp-items="Model.Groups"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
