@@ -47,6 +47,11 @@ namespace eZone.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutGroup(int id, Group @group)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             if (id != @group.Id)
             {
                 return BadRequest();
@@ -78,6 +83,11 @@ namespace eZone.Controllers
         [HttpPost]
         public async Task<ActionResult<Group>> PostGroup(Group @group)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             _context.Groups.Add(@group);
             await _context.SaveChangesAsync();
 

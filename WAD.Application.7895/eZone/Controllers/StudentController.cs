@@ -47,6 +47,11 @@ namespace eZone.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutStudent(int id, Student student)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             if (id != student.Id)
             {
                 return BadRequest();
@@ -78,6 +83,11 @@ namespace eZone.Controllers
         [HttpPost]
         public async Task<ActionResult<Student>> PostStudent(Student student)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             _context.Students.Add(student);
             await _context.SaveChangesAsync();
 
