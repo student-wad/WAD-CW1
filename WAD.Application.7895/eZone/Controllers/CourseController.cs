@@ -2,107 +2,142 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using eZone.DAL;
 using eZone.DAL.DBO;
+using eZone.DAL.Repositories;
 
 namespace eZone.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class CourseController : ControllerBase
+    public class CourseController : Controller
     {
-        private readonly eZoneDbContext _context;
+        private readonly IRepository<Course> _courseRepo;
 
-        public CourseController(eZoneDbContext context)
+        public CourseController(IRepository<Course> courseRepo)
         {
-            _context = context;
+            _courseRepo = courseRepo;
         }
 
-        // GET: api/Course
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Course>>> GetCourses()
+        // GET: Course
+        public async Task<IActionResult> Index()
         {
-            return await _context.Courses.ToListAsync();
+            return View(await _courseRepo.GetAllAsync());
         }
 
-        // GET: api/Course/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Course>> GetCourse(int id)
+        // GET: Course/Details/5
+        public async Task<IActionResult> Details(int? id)
         {
-            var course = await _context.Courses.FindAsync(id);
+            if (id == null)
+            {
+                return NotFound();
+            }
 
+            var course = await _courseRepo.GetByIdAsync(id.Value);
             if (course == null)
             {
                 return NotFound();
             }
 
-            return course;
+            return View(course);
         }
 
-        // PUT: api/Course/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutCourse(int id, Course course)
+        // GET: Course/Create
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: Course/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("Id,CourseLevel,CourseName,CourseDuration,Fee")] Course course)
+        {
+            if (ModelState.IsValid)
+            {
+                await _courseRepo.CreateAsync(course);
+                return RedirectToAction(nameof(Index));
+            }
+            return View(course);
+        }
+
+        // GET: Course/Edit/5
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var course = await _courseRepo.GetByIdAsync(id.Value);
+            if (course == null)
+            {
+                return NotFound();
+            }
+            return View(course);
+        }
+
+        // POST: Course/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("Id,CourseLevel,CourseName,CourseDuration,Fee")] Course course)
         {
             if (id != course.Id)
             {
-                return BadRequest();
+                return NotFound();
             }
 
-            _context.Entry(course).State = EntityState.Modified;
-
-            try
+            if (ModelState.IsValid)
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CourseExists(id))
+                try
                 {
-                    return NotFound();
+                    await _courseRepo.UpdateAsync(course);
                 }
-                else
+                catch (DbUpdateConcurrencyException)
                 {
-                    throw;
+                    if (!_courseRepo.Exists(course.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
                 }
+                return RedirectToAction(nameof(Index));
             }
-
-            return NoContent();
+            return View(course);
         }
 
-        // POST: api/Course
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Course>> PostCourse(Course course)
+        // GET: Course/Delete/5
+        public async Task<IActionResult> Delete(int? id)
         {
-            _context.Courses.Add(course);
-            await _context.SaveChangesAsync();
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-            return CreatedAtAction("GetCourse", new { id = course.Id }, course);
-        }
-
-        // DELETE: api/Course/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCourse(int id)
-        {
-            var course = await _context.Courses.FindAsync(id);
+            var course = await _courseRepo.GetByIdAsync(id.Value);
             if (course == null)
             {
                 return NotFound();
             }
 
-            _context.Courses.Remove(course);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            return View(course);
         }
 
-        private bool CourseExists(int id)
+        // POST: Course/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            return _context.Courses.Any(e => e.Id == id);
+            await _courseRepo.DeleteAsync(id);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

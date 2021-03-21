@@ -2,107 +2,170 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using eZone.DAL;
 using eZone.DAL.DBO;
+using eZone.DAL.Repositories;
+using eZone.Models;
 
 namespace eZone.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class StudentController : ControllerBase
+    public class StudentController : Controller
     {
-        private readonly eZoneDbContext _context;
+        private readonly IRepository<Student> _studentRepo;
+        private readonly IRepository<Group> _groupRepo;
 
-        public StudentController(eZoneDbContext context)
+        public StudentController(IRepository<Student> studentRepo, IRepository<Group> groupRepo)
         {
-            _context = context;
+            _studentRepo = studentRepo;
+            _groupRepo = groupRepo;
         }
 
-        // GET: api/Student
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Student>>> GetStudents()
+        // GET: Student
+        public async Task<IActionResult> Index()
         {
-            return await _context.Students.ToListAsync();
+            return View(await _studentRepo.GetAllAsync());
         }
 
-        // GET: api/Student/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Student>> GetStudent(int id)
+        // GET: Student/Details/5
+        public async Task<IActionResult> Details(int? id)
         {
-            var student = await _context.Students.FindAsync(id);
+            if (id == null)
+            {
+                return NotFound();
+            }
 
+            var student = await _studentRepo.GetByIdAsync(id.Value);
             if (student == null)
             {
                 return NotFound();
             }
 
-            return student;
+            return View(student);
         }
 
-        // PUT: api/Student/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutStudent(int id, Student student)
+        // GET: Student/Create
+        public async Task<IActionResult> Create()
+        {
+            var studentViewModel = new StudentViewModel();
+            studentViewModel.Groups = new SelectList(await _groupRepo.GetAllAsync(), "Id", "Id");
+            return View(studentViewModel);
+        }
+
+        // POST: Student/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("FirstLesson,PaymentStatus,GroupId,Id,FirstName,LastName,Phone")] StudentViewModel student)
+        {
+            if (ModelState.IsValid)
+            {
+                await _studentRepo.CreateAsync(student);
+                return RedirectToAction(nameof(Index));
+            }
+            var group = await _groupRepo.GetByIdAsync(student.GroupId.Value);
+
+            if (student.GroupId == group.Id)
+            {
+                group.NumOfStudents++;
+                await _groupRepo.UpdateAsync(group);                
+            }
+            
+            /*var groups = await _groupRepo.GetAllAsync();
+            foreach (var group in groups)
+            {
+                if (student.GroupId == group.Id)
+                {
+                    group.NumOfStudents++;
+                }                    
+                await _groupRepo.UpdateAsync(group);
+            }*/
+            student.Groups = new SelectList(await _groupRepo.GetAllAsync(), "Id", "Id", student.GroupId);           
+            return View(student);            
+        }
+
+        // GET: Student/Edit/5
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var student = await _studentRepo.GetByIdAsync(id.Value);
+            if (student == null)
+            {
+                return NotFound();
+            }
+            var studentViewModel = new StudentViewModel();
+            studentViewModel.CopyFromStudent(student);
+            studentViewModel.Groups = new SelectList(await _groupRepo.GetAllAsync(), "Id", "Id", student.GroupId);
+            return View(studentViewModel);
+        }
+
+        // POST: Student/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("FirstLesson,PaymentStatus,GroupId,Id,FirstName,LastName,Phone")] StudentViewModel student)
         {
             if (id != student.Id)
             {
-                return BadRequest();
+                return NotFound();
             }
 
-            _context.Entry(student).State = EntityState.Modified;
-
-            try
+            if (ModelState.IsValid)
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!StudentExists(id))
+                try
                 {
-                    return NotFound();
+                    await _studentRepo.UpdateAsync(student);
                 }
-                else
+                catch (DbUpdateConcurrencyException)
                 {
-                    throw;
+                    if (!_studentRepo.Exists(student.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
                 }
+                return RedirectToAction(nameof(Index));
             }
-
-            return NoContent();
+            student.Groups = new SelectList(await _groupRepo.GetAllAsync(), "Id", "Id", student.GroupId);
+            return View(student);
         }
 
-        // POST: api/Student
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Student>> PostStudent(Student student)
+        // GET: Student/Delete/5
+        public async Task<IActionResult> Delete(int? id)
         {
-            _context.Students.Add(student);
-            await _context.SaveChangesAsync();
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-            return CreatedAtAction("GetStudent", new { id = student.Id }, student);
-        }
-
-        // DELETE: api/Student/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteStudent(int id)
-        {
-            var student = await _context.Students.FindAsync(id);
+            var student = await _studentRepo.GetByIdAsync(id.Value);
             if (student == null)
             {
                 return NotFound();
             }
 
-            _context.Students.Remove(student);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            return View(student);
         }
 
-        private bool StudentExists(int id)
+        // POST: Student/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            return _context.Students.Any(e => e.Id == id);
+            await _studentRepo.DeleteAsync(id);
+            return RedirectToAction(nameof(Index));
         }
+
     }
 }

@@ -2,107 +2,160 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using eZone.DAL;
 using eZone.DAL.DBO;
+using eZone.DAL.Repositories;
+using eZone.Models;
 
 namespace eZone.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class GroupController : ControllerBase
+    public class GroupController : Controller
     {
-        private readonly eZoneDbContext _context;
+        private readonly IRepository<Group> _groupRepo;
+        private readonly IRepository<Course> _courseRepo;
+        private readonly IRepository<Teacher> _teacherRepo;
 
-        public GroupController(eZoneDbContext context)
+        public GroupController(IRepository<Group> groupRepo, IRepository<Course> courseRepo, IRepository<Teacher> teacherRepo)
         {
-            _context = context;
+            _groupRepo = groupRepo;
+            _courseRepo = courseRepo;
+            _teacherRepo = teacherRepo;
         }
 
-        // GET: api/Group
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Group>>> GetGroups()
+        // GET: Group
+        public async Task<IActionResult> Index()
         {
-            return await _context.Groups.ToListAsync();
+            return View(await _groupRepo.GetAllAsync());
         }
 
-        // GET: api/Group/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Group>> GetGroup(int id)
+        // GET: Group/Details/5
+        public async Task<IActionResult> Details(int? id)
         {
-            var @group = await _context.Groups.FindAsync(id);
-
-            if (@group == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            return @group;
+            var group = await _groupRepo.GetByIdAsync(id.Value);
+            if (group == null)
+            {
+                return NotFound();
+            }
+
+            return View(@group);
         }
 
-        // PUT: api/Group/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutGroup(int id, Group @group)
+        // GET: Group/Create
+        public async Task<IActionResult> Create()
         {
-            if (id != @group.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(@group).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!GroupExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            var groupViewModel = new GroupViewModel();
+            groupViewModel.Courses = new SelectList(await _courseRepo.GetAllAsync(), "Id", "CourseName");
+            groupViewModel.Teachers = new SelectList(await _teacherRepo.GetAllAsync(), "Id", "FirstName");
+            return View(groupViewModel);
         }
 
-        // POST: api/Group
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        // POST: Group/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public async Task<ActionResult<Group>> PostGroup(Group @group)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("Id,GroupLevel,LessonDays,GroupTime,StartDate,NumOfStudents,CourseId,TeacherId")] GroupViewModel group)
         {
-            _context.Groups.Add(@group);
-            await _context.SaveChangesAsync();
+            if (ModelState.IsValid)
+            {
 
-            return CreatedAtAction("GetGroup", new { id = @group.Id }, @group);
+                await _groupRepo.CreateAsync(group);
+                return RedirectToAction(nameof(Index));
+            }
+            group.Courses = new SelectList(await _courseRepo.GetAllAsync(), "Id", "CourseName", group.CourseId);
+            group.Teachers = new SelectList(await _teacherRepo.GetAllAsync(), "Id", "FirstName", group.TeacherId);
+            return View(group);
         }
 
-        // DELETE: api/Group/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteGroup(int id)
+        // GET: Group/Edit/5
+        public async Task<IActionResult> Edit(int? id)
         {
-            var @group = await _context.Groups.FindAsync(id);
-            if (@group == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            _context.Groups.Remove(@group);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            var group = await _groupRepo.GetByIdAsync(id.Value);
+            if (group == null)
+            {
+                return NotFound();
+            }
+            var groupViewModel = new GroupViewModel();
+            groupViewModel.CopyFromGroup(group);
+            groupViewModel.Courses = new SelectList(await _courseRepo.GetAllAsync(), "Id", "CourseName", group.CourseId);
+            groupViewModel.Teachers = new SelectList(await _teacherRepo.GetAllAsync(), "Id", "FirstName", group.TeacherId);
+            return View(groupViewModel);
         }
 
-        private bool GroupExists(int id)
+        // POST: Group/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("Id,GroupLevel,LessonDays,GroupTime,StartDate,NumOfStudents,CourseId,TeacherId")] GroupViewModel group)
         {
-            return _context.Groups.Any(e => e.Id == id);
+            if (id != group.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    await _groupRepo.UpdateAsync(group);
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!_groupRepo.Exists(group.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            group.Courses = new SelectList(await _courseRepo.GetAllAsync(), "Id", "CourseName", group.CourseId);
+            group.Teachers = new SelectList(await _teacherRepo.GetAllAsync(), "Id", "FirstName", group.TeacherId);
+            return View(group);
         }
+
+        // GET: Group/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var group = await _groupRepo.GetByIdAsync(id.Value);
+            if (group == null)
+            {
+                return NotFound();
+            }
+
+            return View(group);
+        }
+
+        // POST: Group/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            await _groupRepo.DeleteAsync(id);
+            return RedirectToAction(nameof(Index));
+        }
+
     }
 }
