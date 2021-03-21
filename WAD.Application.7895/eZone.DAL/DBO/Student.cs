@@ -17,6 +17,7 @@ namespace eZone.DAL.DBO
         [DisplayName("Payment Status")]
         public PaymentStatus PaymentStatus { get; set; }
 
+        [DisplayName("Group id")]
         public int? GroupId { get; set; }
 
         public virtual Group Group { get; set; }

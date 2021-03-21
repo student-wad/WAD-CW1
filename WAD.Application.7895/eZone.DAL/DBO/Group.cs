@@ -32,8 +32,10 @@ namespace eZone.DAL.DBO
         [DisplayName("Number of Students")]
         public int NumOfStudents { get; set; }
 
+        [DisplayName("Course")]
         public int? CourseId { get; set; }
 
+        [DisplayName("Teacher")]
         public int? TeacherId { get; set; }
         
         public virtual Course Course { get; set; }
