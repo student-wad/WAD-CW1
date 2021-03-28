@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using eZone.DAL;
 using eZone.DAL.DBO;
+using eZone.DAL.Repositories;
 
 namespace eZone.Controllers
 {
@@ -14,25 +15,25 @@ namespace eZone.Controllers
     [ApiController]
     public class CourseController : ControllerBase
     {
-        private readonly eZoneDbContext _context;
+        private readonly IRepository<Course> _courseRepo;
 
-        public CourseController(eZoneDbContext context)
+        public CourseController(IRepository<Course> coureRepo)
         {
-            _context = context;
+            _courseRepo = coureRepo;
         }
 
         // GET: api/Course
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Course>>> GetCourses()
         {
-            return await _context.Courses.ToListAsync();
+            return await _courseRepo.GetAllAsync();
         }
 
         // GET: api/Course/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Course>> GetCourse(int id)
         {
-            var course = await _context.Courses.FindAsync(id);
+            var course = await _courseRepo.GetByIdAsync(id);
 
             if (course == null)
             {
@@ -57,15 +58,14 @@ namespace eZone.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(course).State = EntityState.Modified;
-
+            
             try
             {
-                await _context.SaveChangesAsync();
+                await _courseRepo.UpdateAsync(course);
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CourseExists(id))
+                if (!_courseRepo.Exists(id))
                 {
                     return NotFound();
                 }
@@ -88,8 +88,7 @@ namespace eZone.Controllers
                 return BadRequest(ModelState);
             }
 
-            _context.Courses.Add(course);
-            await _context.SaveChangesAsync();
+            await _courseRepo.CreateAsync(course);
 
             return CreatedAtAction("GetCourse", new { id = course.Id }, course);
         }
@@ -98,21 +97,15 @@ namespace eZone.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCourse(int id)
         {
-            var course = await _context.Courses.FindAsync(id);
+            var course = await _courseRepo.GetByIdAsync(id);
             if (course == null)
             {
                 return NotFound();
             }
 
-            _context.Courses.Remove(course);
-            await _context.SaveChangesAsync();
+            await _courseRepo.DeleteAsync(id);
 
             return NoContent();
-        }
-
-        private bool CourseExists(int id)
-        {
-            return _context.Courses.Any(e => e.Id == id);
-        }
+        }        
     }
 }

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using eZone.DAL;
 using eZone.DAL.DBO;
+using eZone.DAL.Repositories;
 
 namespace eZone.Controllers
 {
@@ -14,58 +15,56 @@ namespace eZone.Controllers
     [ApiController]
     public class GroupController : ControllerBase
     {
-        private readonly eZoneDbContext _context;
+        private readonly IRepository<Group> _groupRepo;
 
-        public GroupController(eZoneDbContext context)
+        public GroupController(IRepository<Group> groupRepo)
         {
-            _context = context;
+            _groupRepo = groupRepo;
         }
 
         // GET: api/Group
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Group>>> GetGroups()
         {
-            return await _context.Groups.ToListAsync();
+            return await _groupRepo.GetAllAsync();
         }
 
         // GET: api/Group/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Group>> GetGroup(int id)
         {
-            var @group = await _context.Groups.FindAsync(id);
+            var group = await _groupRepo.GetByIdAsync(id);
 
-            if (@group == null)
+            if (group == null)
             {
                 return NotFound();
             }
 
-            return @group;
+            return group;
         }
 
         // PUT: api/Group/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutGroup(int id, Group @group)
+        public async Task<IActionResult> PutGroup(int id, Group group)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != @group.Id)
+            if (id != group.Id)
             {
                 return BadRequest();
             }
-
-            _context.Entry(@group).State = EntityState.Modified;
-
+            
             try
             {
-                await _context.SaveChangesAsync();
+                await _groupRepo.UpdateAsync(group);
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!GroupExists(id))
+                if (!_groupRepo.Exists(id))
                 {
                     return NotFound();
                 }
@@ -81,38 +80,31 @@ namespace eZone.Controllers
         // POST: api/Group
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Group>> PostGroup(Group @group)
+        public async Task<ActionResult<Group>> PostGroup(Group group)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+            
+            await _groupRepo.CreateAsync(group);
 
-            _context.Groups.Add(@group);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetGroup", new { id = @group.Id }, @group);
+            return CreatedAtAction("GetGroup", new { id = group.Id }, group);
         }
 
         // DELETE: api/Group/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteGroup(int id)
         {
-            var @group = await _context.Groups.FindAsync(id);
-            if (@group == null)
+            var group = await _groupRepo.GetByIdAsync(id);
+            if (group == null)
             {
                 return NotFound();
             }
 
-            _context.Groups.Remove(@group);
-            await _context.SaveChangesAsync();
+            await _groupRepo.DeleteAsync(id);
 
             return NoContent();
-        }
-
-        private bool GroupExists(int id)
-        {
-            return _context.Groups.Any(e => e.Id == id);
         }
     }
 }

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using eZone.DAL;
 using eZone.DAL.DBO;
+using eZone.DAL.Repositories;
 
 namespace eZone.Controllers
 {
@@ -14,25 +15,25 @@ namespace eZone.Controllers
     [ApiController]
     public class StudentController : ControllerBase
     {
-        private readonly eZoneDbContext _context;
+        private readonly IRepository<Student> _studentRepo;
 
-        public StudentController(eZoneDbContext context)
+        public StudentController(IRepository<Student> studentRepo)
         {
-            _context = context;
+            _studentRepo = studentRepo;
         }
 
         // GET: api/Student
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Student>>> GetStudents()
         {
-            return await _context.Students.ToListAsync();
+            return await _studentRepo.GetAllAsync();
         }
 
         // GET: api/Student/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Student>> GetStudent(int id)
         {
-            var student = await _context.Students.FindAsync(id);
+            var student = await _studentRepo.GetByIdAsync(id);
 
             if (student == null)
             {
@@ -57,15 +58,14 @@ namespace eZone.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(student).State = EntityState.Modified;
-
+            
             try
             {
-                await _context.SaveChangesAsync();
+                await _studentRepo.UpdateAsync(student);
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!StudentExists(id))
+                if (!_studentRepo.Exists(id))
                 {
                     return NotFound();
                 }
@@ -88,8 +88,7 @@ namespace eZone.Controllers
                 return BadRequest(ModelState);
             }
 
-            _context.Students.Add(student);
-            await _context.SaveChangesAsync();
+            await _studentRepo.UpdateAsync(student);
 
             return CreatedAtAction("GetStudent", new { id = student.Id }, student);
         }
@@ -98,21 +97,15 @@ namespace eZone.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteStudent(int id)
         {
-            var student = await _context.Students.FindAsync(id);
+            var student = await _studentRepo.GetByIdAsync(id);
             if (student == null)
             {
                 return NotFound();
             }
 
-            _context.Students.Remove(student);
-            await _context.SaveChangesAsync();
+            await _studentRepo.DeleteAsync(id);
 
             return NoContent();
-        }
-
-        private bool StudentExists(int id)
-        {
-            return _context.Students.Any(e => e.Id == id);
         }
     }
 }

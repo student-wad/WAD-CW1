@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using eZone.DAL;
 using eZone.DAL.DBO;
+using eZone.DAL.Repositories;
 
 namespace eZone.Controllers
 {
@@ -14,25 +15,25 @@ namespace eZone.Controllers
     [ApiController]
     public class TeacherController : ControllerBase
     {
-        private readonly eZoneDbContext _context;
+        private readonly IRepository<Teacher> _teacherRepo;
 
-        public TeacherController(eZoneDbContext context)
+        public TeacherController(IRepository<Teacher> teacherRepo)
         {
-            _context = context;
+            _teacherRepo = teacherRepo;
         }
 
         // GET: api/Teacher
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Teacher>>> GetTeachers()
         {
-            return await _context.Teachers.ToListAsync();
+            return await _teacherRepo.GetAllAsync();
         }
 
         // GET: api/Teacher/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Teacher>> GetTeacher(int id)
         {
-            var teacher = await _context.Teachers.FindAsync(id);
+            var teacher = await _teacherRepo.GetByIdAsync(id);
 
             if (teacher == null)
             {
@@ -57,15 +58,13 @@ namespace eZone.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(teacher).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
+                await _teacherRepo.UpdateAsync(teacher);
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TeacherExists(id))
+                if (!_teacherRepo.Exists(id))
                 {
                     return NotFound();
                 }
@@ -88,8 +87,8 @@ namespace eZone.Controllers
                 return BadRequest(ModelState);
             }
 
-            _context.Teachers.Add(teacher);
-            await _context.SaveChangesAsync();
+            
+            await _teacherRepo.CreateAsync(teacher);
 
             return CreatedAtAction("GetTeacher", new { id = teacher.Id }, teacher);
         }
@@ -98,21 +97,15 @@ namespace eZone.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTeacher(int id)
         {
-            var teacher = await _context.Teachers.FindAsync(id);
+            var teacher = await _teacherRepo.GetByIdAsync(id);
             if (teacher == null)
             {
                 return NotFound();
             }
 
-            _context.Teachers.Remove(teacher);
-            await _context.SaveChangesAsync();
+            await _teacherRepo.DeleteAsync(id);
 
             return NoContent();
-        }
-
-        private bool TeacherExists(int id)
-        {
-            return _context.Teachers.Any(e => e.Id == id);
-        }
+        }        
     }
 }
