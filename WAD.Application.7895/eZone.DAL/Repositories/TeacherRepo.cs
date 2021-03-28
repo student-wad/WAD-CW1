@@ -16,7 +16,10 @@ namespace eZone.DAL.Repositories
 
         public async Task CreateAsync(Teacher entity)
         {
-            _context.Add(entity);
+            //MVC Create
+            /*_context.Add(entity);
+            await _context.SaveChangesAsync();*/
+            _context.Teachers.Add(entity);
             await _context.SaveChangesAsync();
         }
 
@@ -39,8 +42,10 @@ namespace eZone.DAL.Repositories
 
         public async Task<Teacher> GetByIdAsync(int id)
         {
-            return await _context.Teachers
-                .FirstOrDefaultAsync(m => m.Id == id);
+            //MVC - GetById
+            /*return await _context.Teachers
+                .FirstOrDefaultAsync(m => m.Id == id);*/
+            return await _context.Teachers.FindAsync(id);
         }
 
         public async Task UpdateAsync(Teacher entity)

@@ -16,7 +16,10 @@ namespace eZone.DAL.Repositories
 
         public async Task CreateAsync(Group entity)
         {
-            _context.Add(entity);
+            /*MVC - Create*/
+            /*_context.Add(entity);
+            await _context.SaveChangesAsync();*/
+            _context.Groups.Add(entity);
             await _context.SaveChangesAsync();
         }
 
@@ -34,15 +37,19 @@ namespace eZone.DAL.Repositories
 
         public async Task<List<Group>> GetAllAsync()
         {
-            return await _context.Groups.Include(m => m.Course).Include(m => m.Teacher).ToListAsync();
+            //MVC - GetAll
+            //return await _context.Groups.Include(m => m.Course).Include(m => m.Teacher).ToListAsync();
+            return await _context.Groups.ToListAsync();
         }
 
         public async Task<Group> GetByIdAsync(int id)
         {
-            return await _context.Groups
+            //MVC GetById
+            /*return await _context.Groups
                 .Include(m => m.Course)
                 .Include(m => m.Teacher)
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.Id == id);*/
+            return await _context.Groups.FindAsync(id);
         }
 
         public async Task UpdateAsync(Group entity)

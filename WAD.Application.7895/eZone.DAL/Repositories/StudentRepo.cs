@@ -16,7 +16,7 @@ namespace eZone.DAL.Repositories
 
         public async Task CreateAsync(Student entity)
         {
-            _context.Add(entity);
+            _context.Students.Add(entity);
             await _context.SaveChangesAsync();
         }
 
@@ -34,14 +34,18 @@ namespace eZone.DAL.Repositories
 
         public async Task<List<Student>> GetAllAsync()
         {
-            return await _context.Students.Include(s => s.Group).ToListAsync();
+            //MVC - GetAll
+            //return await _context.Students.Include(s => s.Group).ToListAsync();
+            return await _context.Students.ToListAsync();
         }
 
         public async Task<Student> GetByIdAsync(int id)
         {
-            return await _context.Students
+            //MVC
+            /*return await _context.Students
                 .Include(s => s.Group)
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.Id == id);*/
+            return await _context.Students.FindAsync(id);
         }
 
         public async Task UpdateAsync(Student entity)
