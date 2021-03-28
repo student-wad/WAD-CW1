@@ -2,142 +2,117 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using eZone.DAL;
 using eZone.DAL.DBO;
-using eZone.DAL.Repositories;
 
 namespace eZone.Controllers
 {
-    public class TeacherController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class TeacherController : ControllerBase
     {
-        private readonly IRepository<Teacher> _teacherRepo;
+        private readonly eZoneDbContext _context;
 
-        public TeacherController(IRepository<Teacher> teacherRepo)
+        public TeacherController(eZoneDbContext context)
         {
-            _teacherRepo = teacherRepo;
+            _context = context;
         }
 
-        // GET: Teacher
-        public async Task<IActionResult> Index()
+        // GET: api/Teacher
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Teacher>>> GetTeachers()
         {
-            return View(await _teacherRepo.GetAllAsync());
+            return await _context.Teachers.ToListAsync();
         }
 
-        // GET: Teacher/Details/5
-        public async Task<IActionResult> Details(int? id)
+        // GET: api/Teacher/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Teacher>> GetTeacher(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            var teacher = await _context.Teachers.FindAsync(id);
 
-            var teacher = await _teacherRepo.GetByIdAsync(id.Value);
             if (teacher == null)
             {
                 return NotFound();
             }
 
-            return View(teacher);
+            return teacher;
         }
 
-        // GET: Teacher/Create
-        public IActionResult Create()
+        // PUT: api/Teacher/5
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutTeacher(int id, Teacher teacher)
         {
-            return View();
-        }
-
-        // POST: Teacher/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DoB,Email,IELTS_Score,Id,FirstName,LastName,Phone")] Teacher teacher)
-        {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                await _teacherRepo.CreateAsync(teacher);
-                return RedirectToAction(nameof(Index));
-            }
-            return View(teacher);
-        }
-
-        // GET: Teacher/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
+                return BadRequest(ModelState);
             }
 
-            var teacher = await _teacherRepo.GetByIdAsync(id.Value);
-            if (teacher == null)
-            {
-                return NotFound();
-            }
-            return View(teacher);
-        }
-
-        // POST: Teacher/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("DoB,Email,IELTS_Score,Id,FirstName,LastName,Phone")] Teacher teacher)
-        {
             if (id != teacher.Id)
             {
-                return NotFound();
+                return BadRequest();
             }
 
-            if (ModelState.IsValid)
+            _context.Entry(teacher).State = EntityState.Modified;
+
+            try
             {
-                try
-                {
-                    await _teacherRepo.UpdateAsync(teacher);
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!_teacherRepo.Exists(teacher.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                await _context.SaveChangesAsync();
             }
-            return View(teacher);
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!TeacherExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
         }
 
-        // GET: Teacher/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        // POST: api/Teacher
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPost]
+        public async Task<ActionResult<Teacher>> PostTeacher(Teacher teacher)
         {
-            if (id == null)
+            if (!ModelState.IsValid)
             {
-                return NotFound();
+                return BadRequest(ModelState);
             }
 
-            var teacher = await _teacherRepo.GetByIdAsync(id.Value);
+            _context.Teachers.Add(teacher);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetTeacher", new { id = teacher.Id }, teacher);
+        }
+
+        // DELETE: api/Teacher/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteTeacher(int id)
+        {
+            var teacher = await _context.Teachers.FindAsync(id);
             if (teacher == null)
             {
                 return NotFound();
             }
 
-            return View(teacher);
+            _context.Teachers.Remove(teacher);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
         }
 
-        // POST: Teacher/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        private bool TeacherExists(int id)
         {
-            await _teacherRepo.DeleteAsync(id);
-            return RedirectToAction(nameof(Index));
+            return _context.Teachers.Any(e => e.Id == id);
         }
     }
 }
