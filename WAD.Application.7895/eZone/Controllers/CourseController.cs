@@ -8,6 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using eZone.DAL;
 using eZone.DAL.DBO;
 using eZone.DAL.Repositories;
+using eZone.DTO;
+using System.ComponentModel.DataAnnotations;
+using eZone.BLL;
 
 namespace eZone.Controllers
 {
@@ -26,7 +29,13 @@ namespace eZone.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Course>>> GetCourses()
         {
-            return await _courseRepo.GetAllAsync();
+            var courses = await _courseRepo.GetAllAsync();
+            return Ok(courses.Select(c =>new CourseDTO { 
+            Id = c.Id,
+            CourseLevel = c.CourseLevel.GetAttribute<DisplayAttribute>().Name,
+            CourseName = c.CourseName,
+            CourseDuration = c.CourseDuration
+            }));
         }
 
         // GET: api/Course/5

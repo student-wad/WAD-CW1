@@ -8,6 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using eZone.DAL;
 using eZone.DAL.DBO;
 using eZone.DAL.Repositories;
+using eZone.DTO;
+using eZone.BLL;
+using System.ComponentModel.DataAnnotations;
 
 namespace eZone.Controllers
 {
@@ -15,7 +18,7 @@ namespace eZone.Controllers
     [ApiController]
     public class GroupController : ControllerBase
     {
-        private readonly IRepository<Group> _groupRepo;
+        private readonly IRepository<Group> _groupRepo;        
 
         public GroupController(IRepository<Group> groupRepo)
         {
@@ -24,9 +27,26 @@ namespace eZone.Controllers
 
         // GET: api/Group
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Group>>> GetGroups()
+        public async Task<ActionResult<IEnumerable<GroupDTO>>> GetGroups(int? teacherId)
         {
-            return await _groupRepo.GetAllAsync();
+            var groups = await _groupRepo.GetAllAsync();
+            if (teacherId.HasValue)
+            {
+                groups = groups.Where(p => p.TeacherId == teacherId).ToList();                
+            }
+            return Ok(groups.Select(g=>new GroupDTO()
+             {
+                 Id=g.Id,
+                 GroupLevel= g.GroupLevel.GetAttribute<DisplayAttribute>().Name,
+                 LessonDays = g.LessonDays.GetAttribute<DisplayAttribute>().Name,
+                 GroupTime = g.GroupTime.GetAttribute<DisplayAttribute>().Name,
+                 StartDate = g.StartDate,
+                 GroupStatus = g.GroupStatus.GetAttribute<DisplayAttribute>().Name,
+                 NumOfStudents =g.NumOfStudents,
+                 CourseName = g.Course.CourseName,
+                 TeacherFirstName = g.Teacher.FirstName                
+             })); 
+            
         }
 
         // GET: api/Group/5

@@ -8,6 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using eZone.DAL;
 using eZone.DAL.DBO;
 using eZone.DAL.Repositories;
+using eZone.DTO;
+using eZone.BLL;
+using System.ComponentModel.DataAnnotations;
 
 namespace eZone.Controllers
 {
@@ -24,9 +27,22 @@ namespace eZone.Controllers
 
         // GET: api/Student
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Student>>> GetStudents()
+        public async Task<ActionResult<IEnumerable<StudentDTO>>> GetStudents(int? groupId)
         {
-            return await _studentRepo.GetAllAsync();
+            var students= await _studentRepo.GetAllAsync();
+            if (groupId.HasValue)
+            {
+                students = students.Where(p => p.GroupId == groupId).ToList();
+            }
+            return Ok(students.Select(s=> new StudentDTO { 
+            Id = s.Id,
+            FirstName = s.FirstName,
+            LastName = s.LastName,
+            Phone = s.Phone,
+            FirstLesson = s.FirstLesson,
+            PaymentStatus = s.PaymentStatus.GetAttribute<DisplayAttribute>().Name,
+            GroupId = s.Group.Id
+            }));           
         }
 
         // GET: api/Student/5
