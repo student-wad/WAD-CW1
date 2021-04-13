@@ -13,8 +13,11 @@ namespace eZone.DAL.DBO
 
     public enum GroupLevel
     {
+        [Display(Name = "L1")]
         L1,
+        [Display(Name = "L2")]
         L2,
+        [Display(Name = "L3")]
         L3
     }
 
@@ -34,12 +37,15 @@ namespace eZone.DAL.DBO
 
     public enum GroupStatus
     {
+        [Display(Name = "Available")]
         Available,
+        [Display(Name = "Full")]
         Full
     }
 
     public enum PaymentStatus
     {
+        [Display(Name ="Not Paid")]
         Paid,
         [Display(Name="Not Paid")]
         Not_Paid
@@ -47,6 +53,7 @@ namespace eZone.DAL.DBO
 
     public enum CourseLevel
     {
+        [Display(Name = "IELTS")]
         IELTS,
         [Display(Name = "General English")]
         GeneralEnglish
