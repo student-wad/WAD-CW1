@@ -35,17 +35,17 @@ namespace eZone.DAL.Repositories
         public async Task<List<Student>> GetAllAsync()
         {
             //MVC - GetAll
-            //return await _context.Students.Include(s => s.Group).ToListAsync();
-            return await _context.Students.ToListAsync();
+            return await _context.Students.Include(g => g.Group).ToListAsync();
+            //return await _context.Students.ToListAsync();
         }
 
         public async Task<Student> GetByIdAsync(int id)
         {
             //MVC
-            /*return await _context.Students
-                .Include(s => s.Group)
-                .FirstOrDefaultAsync(m => m.Id == id);*/
-            return await _context.Students.FindAsync(id);
+            return await _context.Students
+                .Include(g => g.Group)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            //return await _context.Students.FindAsync(id);
         }
 
         public async Task UpdateAsync(Student entity)
