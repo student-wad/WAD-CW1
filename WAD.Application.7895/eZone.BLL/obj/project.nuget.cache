@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "rCrr89tbfLnsKbkR55zvUTy1sesuQ5ZHckb3M0wZ7XVJJuqNyz1x8x8c3MW7DBzMhNuRzieL02Hoq9yM2Nlfdg==",
+  "dgSpecHash": "frlLwXPd285oTcJjdOOf5vxXL5ZXduhtijBEO5CoGoXgKxgXArWUtIFijKcYOyFjgq19MZFhUUNG1skcAhaDdg==",
   "success": true,
-  "projectFilePath": "D:\\WIUT\\Level 5\\WAD\\CW\\Github versions\\WAD\\WAD.Application.7895\\eZone.BLL\\eZone.BLL.csproj",
+  "projectFilePath": "C:\\Users\\user\\Desktop\\WAD\\WAD.Application.7895\\eZone.BLL\\eZone.BLL.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\user\\.nuget\\packages\\humanizer.core\\2.2.0\\humanizer.core.2.2.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.aspnetcore.html.abstractions\\2.2.0\\microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",
@@ -166,7 +166,7 @@
     "C:\\Users\\user\\.nuget\\packages\\system.windows.extensions\\4.7.0\\system.windows.extensions.4.7.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
-    "C:\\Users\\user\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512"
   ],
   "logs": []

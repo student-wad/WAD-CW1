@@ -7440,11 +7440,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\WIUT\\Level 5\\WAD\\CW\\Github versions\\WAD\\WAD.Application.7895\\eZone.DAL\\eZone.DAL.csproj",
+      "projectUniqueName": "C:\\Users\\user\\Source\\Repos\\WAD-CW1\\WAD.Application.7895\\eZone.DAL\\eZone.DAL.csproj",
       "projectName": "eZone.DAL",
-      "projectPath": "D:\\WIUT\\Level 5\\WAD\\CW\\Github versions\\WAD\\WAD.Application.7895\\eZone.DAL\\eZone.DAL.csproj",
+      "projectPath": "C:\\Users\\user\\Source\\Repos\\WAD-CW1\\WAD.Application.7895\\eZone.DAL\\eZone.DAL.csproj",
       "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-      "outputPath": "D:\\WIUT\\Level 5\\WAD\\CW\\Github versions\\WAD\\WAD.Application.7895\\eZone.DAL\\obj\\",
+      "outputPath": "C:\\Users\\user\\Source\\Repos\\WAD-CW1\\WAD.Application.7895\\eZone.DAL\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
