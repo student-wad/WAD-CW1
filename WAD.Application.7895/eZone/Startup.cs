@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Text.Json.Serialization;
 
 namespace eZone
 {
@@ -36,6 +37,10 @@ namespace eZone
             services.AddDbContext<eZoneDbContext>(
                options => options.UseSqlServer(
                    Configuration.GetConnectionString("eZone")));
+            services.AddMvc().AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
