@@ -37,8 +37,8 @@ namespace eZone.DAL.DBO
 
     public enum GroupStatus
     {
-        [Display(Name = "Available")]
-        Available,
+        [Display(Name = "Not Full")]
+        NotFull,
         [Display(Name = "Full")]
         Full
     }
