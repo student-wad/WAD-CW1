@@ -2172,6 +2172,19 @@
           "lib/netstandard1.3/System.Xml.XmlSerializer.dll": {}
         }
       },
+      "eZone.BLL/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "eZone.DAL": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/eZone.BLL.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/eZone.BLL.dll": {}
+        }
+      },
       "eZone.DAL/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
@@ -7439,6 +7452,11 @@
         "system.xml.xmlserializer.nuspec"
       ]
     },
+    "eZone.BLL/1.0.0": {
+      "type": "project",
+      "path": "../eZone.BLL/eZone.BLL.csproj",
+      "msbuildProject": "../eZone.BLL/eZone.BLL.csproj"
+    },
     "eZone.DAL/1.0.0": {
       "type": "project",
       "path": "../eZone.DAL/eZone.DAL.csproj",
@@ -7452,6 +7470,7 @@
       "Microsoft.EntityFrameworkCore.Sqlite >= 5.0.4",
       "Microsoft.EntityFrameworkCore.Tools >= 5.0.4",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 5.0.2",
+      "eZone.BLL >= 1.0.0",
       "eZone.DAL >= 1.0.0"
     ]
   },
@@ -7462,11 +7481,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\user\\Source\\Repos\\WAD-CW1\\WAD.Application.7895\\eZone\\eZone.csproj",
+      "projectUniqueName": "D:\\WIUT\\Level 5\\WAD\\CW\\Github versions\\WAD\\WAD.Application.7895\\eZone\\eZone.csproj",
       "projectName": "eZone",
-      "projectPath": "C:\\Users\\user\\Source\\Repos\\WAD-CW1\\WAD.Application.7895\\eZone\\eZone.csproj",
+      "projectPath": "D:\\WIUT\\Level 5\\WAD\\CW\\Github versions\\WAD\\WAD.Application.7895\\eZone\\eZone.csproj",
       "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\user\\Source\\Repos\\WAD-CW1\\WAD.Application.7895\\eZone\\obj\\",
+      "outputPath": "D:\\WIUT\\Level 5\\WAD\\CW\\Github versions\\WAD\\WAD.Application.7895\\eZone\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -7486,8 +7505,11 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "C:\\Users\\user\\Source\\Repos\\WAD-CW1\\WAD.Application.7895\\eZone.DAL\\eZone.DAL.csproj": {
-              "projectPath": "C:\\Users\\user\\Source\\Repos\\WAD-CW1\\WAD.Application.7895\\eZone.DAL\\eZone.DAL.csproj"
+            "D:\\WIUT\\Level 5\\WAD\\CW\\Github versions\\WAD\\WAD.Application.7895\\eZone.BLL\\eZone.BLL.csproj": {
+              "projectPath": "D:\\WIUT\\Level 5\\WAD\\CW\\Github versions\\WAD\\WAD.Application.7895\\eZone.BLL\\eZone.BLL.csproj"
+            },
+            "D:\\WIUT\\Level 5\\WAD\\CW\\Github versions\\WAD\\WAD.Application.7895\\eZone.DAL\\eZone.DAL.csproj": {
+              "projectPath": "D:\\WIUT\\Level 5\\WAD\\CW\\Github versions\\WAD\\WAD.Application.7895\\eZone.DAL\\eZone.DAL.csproj"
             }
           }
         }

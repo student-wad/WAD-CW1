@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\eZone.BLL\eZone.BLL.csproj" />
     <ProjectReference Include="..\eZone.DAL\eZone.DAL.csproj" />
   </ItemGroup>
 
