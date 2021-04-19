@@ -2,15 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using eZone.DAL;
 using eZone.DAL.DBO;
 using eZone.DAL.Repositories;
-using eZone.DTO;
+using eZone.BLL.DTO;
 using eZone.BLL;
 using System.ComponentModel.DataAnnotations;
+using eZone.BLL.GroupStatusState;
 
 namespace eZone.Controllers
 {
@@ -19,10 +18,12 @@ namespace eZone.Controllers
     public class StudentController : ControllerBase
     {
         private readonly IRepository<Student> _studentRepo;
+        private readonly IRepository<Group> _groupRepo;
 
-        public StudentController(IRepository<Student> studentRepo)
+        public StudentController(IRepository<Student> studentRepo, IRepository<Group> groupRepo)
         {
             _studentRepo = studentRepo;
+            _groupRepo = groupRepo;
         }
 
         // GET: api/Student
@@ -103,11 +104,26 @@ namespace eZone.Controllers
             {
                 return BadRequest(ModelState);
             }
+           
+            var group = await _groupRepo.GetByIdAsync(student.GroupId.Value);
+            var groupStudentCount = new GroupStudentCount(_groupRepo, group);
 
-            await _studentRepo.UpdateAsync(student);
 
+            try
+            {
+                groupStudentCount.IncrementStudentCount();
+                await _studentRepo.CreateAsync(student);
+
+            }
+            catch (Exception e)
+            {
+                ModelState.AddModelError("", e.Message);                
+            }            
+            
             return CreatedAtAction("GetStudent", new { id = student.Id }, student);
         }
+
+
 
         // DELETE: api/Student/5
         [HttpDelete("{id}")]

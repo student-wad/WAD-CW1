@@ -5,10 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using eZone.DAL;
 using eZone.DAL.DBO;
 using eZone.DAL.Repositories;
-using eZone.DTO;
+using eZone.BLL.DTO;
 using System.ComponentModel.DataAnnotations;
 using eZone.BLL;
 
@@ -34,7 +33,8 @@ namespace eZone.Controllers
             Id = c.Id,
             CourseLevel = c.CourseLevel.GetAttribute<DisplayAttribute>().Name,
             CourseName = c.CourseName,
-            CourseDuration = c.CourseDuration
+            CourseDuration = c.CourseDuration,
+            Fee = c.Fee
             }));
         }
 
@@ -66,10 +66,9 @@ namespace eZone.Controllers
             {
                 return BadRequest();
             }
-
-            
+                        
             try
-            {
+            {              
                 await _courseRepo.UpdateAsync(course);
             }
             catch (DbUpdateConcurrencyException)
@@ -97,7 +96,7 @@ namespace eZone.Controllers
                 return BadRequest(ModelState);
             }
 
-            await _courseRepo.CreateAsync(course);
+            await _courseRepo.CreateAsync(course);          
 
             return CreatedAtAction("GetCourse", new { id = course.Id }, course);
         }
@@ -115,6 +114,12 @@ namespace eZone.Controllers
             await _courseRepo.DeleteAsync(id);
 
             return NoContent();
-        }        
+        }     
+        
+       /* [HttpGet]
+        public IEnumerable<EnumValues> GetEnums()
+        {
+            return EnumExtensions.GetObjectList<CourseLevel>();
+        }*/
     }
 }

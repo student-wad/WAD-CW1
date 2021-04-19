@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using eZone.DAL;
 using eZone.DAL.DBO;
 using eZone.DAL.Repositories;
-using eZone.DTO;
+using eZone.BLL.DTO;
 using eZone.BLL;
 using System.ComponentModel.DataAnnotations;
 
@@ -106,7 +104,7 @@ namespace eZone.Controllers
             {
                 return BadRequest(ModelState);
             }
-            
+         
             await _groupRepo.CreateAsync(group);
 
             return CreatedAtAction("GetGroup", new { id = group.Id }, group);
@@ -126,5 +124,7 @@ namespace eZone.Controllers
 
             return NoContent();
         }
+
+
     }
 }
