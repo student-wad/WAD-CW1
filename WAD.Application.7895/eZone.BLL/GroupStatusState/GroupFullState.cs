@@ -7,22 +7,12 @@ using eZone.DAL.DBO;
 
 namespace eZone.BLL.GroupStatusState
 {
-    public class GroupFullState : IGroupStatusState
+    public class GroupFullState : IGroupProcessor
     {
-        public GroupStatus GroupStatus
-        {
-            get { return GroupStatus.Full; }
-        }
-
-        public void Add(GroupBLL group)
+        public void Process(Group group)
         {
             throw new InvalidOperationException(
                 "You cannot add a student to this group since it is full");
-        }
-
-        public bool CanAdd(GroupBLL group)
-        {
-            return false;
         }
     }
 }

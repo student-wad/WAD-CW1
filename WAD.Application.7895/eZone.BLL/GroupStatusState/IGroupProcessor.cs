@@ -7,10 +7,8 @@ using eZone.DAL.DBO;
 
 namespace eZone.BLL.GroupStatusState
 {
-   public interface IGroupStatusState
+   public interface IGroupProcessor
     {
-        GroupStatus GroupStatus { get; }
-        void Add(GroupBLL group);
-        bool CanAdd(GroupBLL group);
+        void Process(Group group);        
     }
 }
