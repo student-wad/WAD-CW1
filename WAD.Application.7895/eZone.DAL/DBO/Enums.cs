@@ -37,15 +37,15 @@ namespace eZone.DAL.DBO
 
     public enum GroupStatus
     {
-        [Display(Name = "Not Full")]
-        NotFull,
+        [Display(Name = "Available")]
+        Available,
         [Display(Name = "Full")]
         Full
     }
 
     public enum PaymentStatus
     {
-        [Display(Name ="Paid")]
+        [Display(Name ="Not Paid")]
         Paid,
         [Display(Name="Not Paid")]
         Not_Paid

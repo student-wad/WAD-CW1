@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\WIUT\\Level 5\\WAD\\CW\\Github versions\\WAD\\WAD.Application.7895\\eZone.BLL\\eZone.BLL.csproj": {}
+    "C:\\Users\\user\\Desktop\\WAD\\WAD.Application.7895\\eZone.BLL\\eZone.BLL.csproj": {}
   },
   "projects": {
-    "D:\\WIUT\\Level 5\\WAD\\CW\\Github versions\\WAD\\WAD.Application.7895\\eZone.BLL\\eZone.BLL.csproj": {
+    "C:\\Users\\user\\Desktop\\WAD\\WAD.Application.7895\\eZone.BLL\\eZone.BLL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\WIUT\\Level 5\\WAD\\CW\\Github versions\\WAD\\WAD.Application.7895\\eZone.BLL\\eZone.BLL.csproj",
+        "projectUniqueName": "C:\\Users\\user\\Desktop\\WAD\\WAD.Application.7895\\eZone.BLL\\eZone.BLL.csproj",
         "projectName": "eZone.BLL",
-        "projectPath": "D:\\WIUT\\Level 5\\WAD\\CW\\Github versions\\WAD\\WAD.Application.7895\\eZone.BLL\\eZone.BLL.csproj",
+        "projectPath": "C:\\Users\\user\\Desktop\\WAD\\WAD.Application.7895\\eZone.BLL\\eZone.BLL.csproj",
         "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-        "outputPath": "D:\\WIUT\\Level 5\\WAD\\CW\\Github versions\\WAD\\WAD.Application.7895\\eZone.BLL\\obj\\",
+        "outputPath": "C:\\Users\\user\\Desktop\\WAD\\WAD.Application.7895\\eZone.BLL\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -31,8 +31,8 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "D:\\WIUT\\Level 5\\WAD\\CW\\Github versions\\WAD\\WAD.Application.7895\\eZone.DAL\\eZone.DAL.csproj": {
-                "projectPath": "D:\\WIUT\\Level 5\\WAD\\CW\\Github versions\\WAD\\WAD.Application.7895\\eZone.DAL\\eZone.DAL.csproj"
+              "C:\\Users\\user\\Desktop\\WAD\\WAD.Application.7895\\eZone.DAL\\eZone.DAL.csproj": {
+                "projectPath": "C:\\Users\\user\\Desktop\\WAD\\WAD.Application.7895\\eZone.DAL\\eZone.DAL.csproj"
               }
             }
           }
@@ -65,14 +65,14 @@
         }
       }
     },
-    "D:\\WIUT\\Level 5\\WAD\\CW\\Github versions\\WAD\\WAD.Application.7895\\eZone.DAL\\eZone.DAL.csproj": {
+    "C:\\Users\\user\\Desktop\\WAD\\WAD.Application.7895\\eZone.DAL\\eZone.DAL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\WIUT\\Level 5\\WAD\\CW\\Github versions\\WAD\\WAD.Application.7895\\eZone.DAL\\eZone.DAL.csproj",
+        "projectUniqueName": "C:\\Users\\user\\Desktop\\WAD\\WAD.Application.7895\\eZone.DAL\\eZone.DAL.csproj",
         "projectName": "eZone.DAL",
-        "projectPath": "D:\\WIUT\\Level 5\\WAD\\CW\\Github versions\\WAD\\WAD.Application.7895\\eZone.DAL\\eZone.DAL.csproj",
+        "projectPath": "C:\\Users\\user\\Desktop\\WAD\\WAD.Application.7895\\eZone.DAL\\eZone.DAL.csproj",
         "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-        "outputPath": "D:\\WIUT\\Level 5\\WAD\\CW\\Github versions\\WAD\\WAD.Application.7895\\eZone.DAL\\obj\\",
+        "outputPath": "C:\\Users\\user\\Desktop\\WAD\\WAD.Application.7895\\eZone.DAL\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
