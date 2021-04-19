@@ -13,6 +13,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Text.Json.Serialization;
+using System.Text.Json;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+
 
 namespace eZone
 {
@@ -22,7 +27,7 @@ namespace eZone
         {
             Configuration = configuration;
         }
-
+       
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -36,6 +41,10 @@ namespace eZone
             services.AddDbContext<eZoneDbContext>(
                options => options.UseSqlServer(
                    Configuration.GetConnectionString("eZone")));
+            services.AddMvc().AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            });      
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

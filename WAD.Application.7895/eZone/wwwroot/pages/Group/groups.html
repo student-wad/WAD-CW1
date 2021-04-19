@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <p>
+        <a href="#!/addGroup" class="btn btn-primary">Create new Group</a>
+    </p>
+    <div class="form-group row">
+        <div class="col-2">
+            <select class="form-control"
+                    ng-options="teacher as teacher.firstName for teacher in teachers"
+                    ng-model="selectedTeacher" ng-change="GetGroups()">
+                <option value="">Select a teacher</option>
+            </select>
+        </div>
+    </div>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">
+                        Id
+                    </th>
+                    <th scope="col">
+                        Group Level
+                    </th>
+                    <th scope="col">
+                        Lesson Days
+                    </th>
+                    <th scope="col">
+                        Group Time
+                    </th>
+                    <th scope="col">
+                        Start Date
+                    </th>
+                    <th scope="col">
+                        Group Status
+                    </th>
+                    <th scope="col">
+                        NumOfStd
+                    </th>
+                    <th scope="col">
+                        Course
+                    </th>
+                    <th scope="col">
+                        Teacher
+                    </th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="group in groups">
+                    <td>
+                        {{group.id}}
+                    </td>
+                    <td>
+                        {{group.groupLevel}}
+                    </td>
+                    <td>
+                        {{group.lessonDays}}
+                    </td>
+                    <td>
+                        {{group.groupTime}}
+                    </td>
+                    <td>
+                        <label ng-bind="formatDate(group.startDate) | date:'dd/MM/yyyy'"></label>
+                    </td>
+                    <td>
+                        {{group.groupStatus}}
+                    </td>
+                    <td>
+                        {{group.numOfStudents}}
+                    </td>
+                    <td>
+                        {{group.courseName}}
+                    </td>
+                    <td>
+                        {{group.teacherFirstName}}
+                    </td>
+                    <td>
+                        <a href="#!/editGroup/{{group.id}}">Edit</a>
+                    </td>
+                    <td>
+                        <a class="badge badge-danger" ng-click="Delete(group)">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</body>
+</html>

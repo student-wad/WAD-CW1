@@ -3,3 +3,33 @@ C:\Users\user\Source\Repos\WAD-CW1\WAD.Application.7895\eZone.DAL\obj\Debug\net5
 C:\Users\user\Source\Repos\WAD-CW1\WAD.Application.7895\eZone.DAL\obj\Debug\net5.0\eZone.DAL.AssemblyInfoInputs.cache
 C:\Users\user\Source\Repos\WAD-CW1\WAD.Application.7895\eZone.DAL\obj\Debug\net5.0\eZone.DAL.AssemblyInfo.cs
 C:\Users\user\Source\Repos\WAD-CW1\WAD.Application.7895\eZone.DAL\obj\Debug\net5.0\eZone.DAL.csproj.CoreCompileInputs.cache
+C:\Users\user\Desktop\WAD\WAD.Application.7895\eZone.DAL\bin\Debug\net5.0\eZone.DAL.deps.json
+C:\Users\user\Desktop\WAD\WAD.Application.7895\eZone.DAL\bin\Debug\net5.0\eZone.DAL.runtimeconfig.json
+C:\Users\user\Desktop\WAD\WAD.Application.7895\eZone.DAL\bin\Debug\net5.0\eZone.DAL.runtimeconfig.dev.json
+C:\Users\user\Desktop\WAD\WAD.Application.7895\eZone.DAL\bin\Debug\net5.0\eZone.DAL.dll
+C:\Users\user\Desktop\WAD\WAD.Application.7895\eZone.DAL\bin\Debug\net5.0\ref\eZone.DAL.dll
+C:\Users\user\Desktop\WAD\WAD.Application.7895\eZone.DAL\bin\Debug\net5.0\eZone.DAL.pdb
+C:\Users\user\Desktop\WAD\WAD.Application.7895\eZone.DAL\obj\Debug\net5.0\eZone.DAL.csprojAssemblyReference.cache
+C:\Users\user\Desktop\WAD\WAD.Application.7895\eZone.DAL\obj\Debug\net5.0\eZone.DAL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user\Desktop\WAD\WAD.Application.7895\eZone.DAL\obj\Debug\net5.0\eZone.DAL.AssemblyInfoInputs.cache
+C:\Users\user\Desktop\WAD\WAD.Application.7895\eZone.DAL\obj\Debug\net5.0\eZone.DAL.AssemblyInfo.cs
+C:\Users\user\Desktop\WAD\WAD.Application.7895\eZone.DAL\obj\Debug\net5.0\eZone.DAL.csproj.CoreCompileInputs.cache
+C:\Users\user\Desktop\WAD\WAD.Application.7895\eZone.DAL\obj\Debug\net5.0\eZone.DAL.dll
+C:\Users\user\Desktop\WAD\WAD.Application.7895\eZone.DAL\obj\Debug\net5.0\ref\eZone.DAL.dll
+C:\Users\user\Desktop\WAD\WAD.Application.7895\eZone.DAL\obj\Debug\net5.0\eZone.DAL.pdb
+C:\Users\user\Desktop\WAD\WAD.Application.7895\eZone.DAL\obj\Debug\net5.0\eZone.DAL.genruntimeconfig.cache
+D:\WIUT\Level 5\WAD\CW\Github versions\WAD\WAD.Application.7895\eZone.DAL\bin\Debug\net5.0\eZone.DAL.deps.json
+D:\WIUT\Level 5\WAD\CW\Github versions\WAD\WAD.Application.7895\eZone.DAL\bin\Debug\net5.0\eZone.DAL.runtimeconfig.json
+D:\WIUT\Level 5\WAD\CW\Github versions\WAD\WAD.Application.7895\eZone.DAL\bin\Debug\net5.0\eZone.DAL.runtimeconfig.dev.json
+D:\WIUT\Level 5\WAD\CW\Github versions\WAD\WAD.Application.7895\eZone.DAL\bin\Debug\net5.0\eZone.DAL.dll
+D:\WIUT\Level 5\WAD\CW\Github versions\WAD\WAD.Application.7895\eZone.DAL\bin\Debug\net5.0\ref\eZone.DAL.dll
+D:\WIUT\Level 5\WAD\CW\Github versions\WAD\WAD.Application.7895\eZone.DAL\bin\Debug\net5.0\eZone.DAL.pdb
+D:\WIUT\Level 5\WAD\CW\Github versions\WAD\WAD.Application.7895\eZone.DAL\obj\Debug\net5.0\eZone.DAL.csprojAssemblyReference.cache
+D:\WIUT\Level 5\WAD\CW\Github versions\WAD\WAD.Application.7895\eZone.DAL\obj\Debug\net5.0\eZone.DAL.GeneratedMSBuildEditorConfig.editorconfig
+D:\WIUT\Level 5\WAD\CW\Github versions\WAD\WAD.Application.7895\eZone.DAL\obj\Debug\net5.0\eZone.DAL.AssemblyInfoInputs.cache
+D:\WIUT\Level 5\WAD\CW\Github versions\WAD\WAD.Application.7895\eZone.DAL\obj\Debug\net5.0\eZone.DAL.AssemblyInfo.cs
+D:\WIUT\Level 5\WAD\CW\Github versions\WAD\WAD.Application.7895\eZone.DAL\obj\Debug\net5.0\eZone.DAL.csproj.CoreCompileInputs.cache
+D:\WIUT\Level 5\WAD\CW\Github versions\WAD\WAD.Application.7895\eZone.DAL\obj\Debug\net5.0\eZone.DAL.dll
+D:\WIUT\Level 5\WAD\CW\Github versions\WAD\WAD.Application.7895\eZone.DAL\obj\Debug\net5.0\ref\eZone.DAL.dll
+D:\WIUT\Level 5\WAD\CW\Github versions\WAD\WAD.Application.7895\eZone.DAL\obj\Debug\net5.0\eZone.DAL.pdb
+D:\WIUT\Level 5\WAD\CW\Github versions\WAD\WAD.Application.7895\eZone.DAL\obj\Debug\net5.0\eZone.DAL.genruntimeconfig.cache

@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <br />
+    <form>
+        <div class="form-group row">
+            <label for="firstName" class="col-sm-2 col-form-label">First Name</label>
+            <div class="col-7">
+                <input type="text" class="form-control" placeholder="First Name" ng-model="teacher.firstName" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="lastName" class="col-sm-2 col-form-label">Last Name</label>
+            <div class="col-7">
+                <input type="text" class="form-control" placeholder="Last Name" ng-model="teacher.lastName" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="lastName" class="col-sm-2 col-form-label">Phone</label>
+            <div class="col-7">
+                <input type="text" class="form-control" placeholder="Phone" ng-model="teacher.phone" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="doB" class="col-sm-2 col-form-label">DoB</label>
+            <div class="col-7">
+                <input type="text" class="form-control" placeholder="yyyy-MM-dd" ng-model="teacher.doB" />[ex: 2021-01-21]
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="phone" class="col-sm-2 col-form-label">Email</label>
+            <div class="col-7">
+                <input type="email" class="form-control" placeholder="Email" ng-model="teacher.email" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="IELTS_Score" class="col-sm-2 col-form-label">IELTS Score</label>
+            <div class="col-7">
+                <input type="number" step=".1" class="form-control" placeholder="IELTS Score" ng-model="teacher.ieltS_Score" />
+            </div>
+        </div>        
+
+        <div class="form-group row">
+            <div class="col-sm-10">
+                <input type="submit" value="Save" class="btn btn-primary" ng-click="SaveTeacher()" />
+            </div>
+        </div>
+    </form>
+</body>
+</html>

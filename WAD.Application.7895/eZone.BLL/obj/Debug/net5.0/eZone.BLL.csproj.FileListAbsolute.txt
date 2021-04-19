@@ -1,0 +1,15 @@
+D:\WIUT\Level 5\WAD\CW\Github versions\WAD\WAD.Application.7895\eZone.BLL\bin\Debug\net5.0\eZone.BLL.deps.json
+D:\WIUT\Level 5\WAD\CW\Github versions\WAD\WAD.Application.7895\eZone.BLL\bin\Debug\net5.0\eZone.BLL.dll
+D:\WIUT\Level 5\WAD\CW\Github versions\WAD\WAD.Application.7895\eZone.BLL\bin\Debug\net5.0\ref\eZone.BLL.dll
+D:\WIUT\Level 5\WAD\CW\Github versions\WAD\WAD.Application.7895\eZone.BLL\bin\Debug\net5.0\eZone.BLL.pdb
+D:\WIUT\Level 5\WAD\CW\Github versions\WAD\WAD.Application.7895\eZone.BLL\bin\Debug\net5.0\eZone.DAL.dll
+D:\WIUT\Level 5\WAD\CW\Github versions\WAD\WAD.Application.7895\eZone.BLL\bin\Debug\net5.0\eZone.DAL.pdb
+D:\WIUT\Level 5\WAD\CW\Github versions\WAD\WAD.Application.7895\eZone.BLL\obj\Debug\net5.0\eZone.BLL.csprojAssemblyReference.cache
+D:\WIUT\Level 5\WAD\CW\Github versions\WAD\WAD.Application.7895\eZone.BLL\obj\Debug\net5.0\eZone.BLL.GeneratedMSBuildEditorConfig.editorconfig
+D:\WIUT\Level 5\WAD\CW\Github versions\WAD\WAD.Application.7895\eZone.BLL\obj\Debug\net5.0\eZone.BLL.AssemblyInfoInputs.cache
+D:\WIUT\Level 5\WAD\CW\Github versions\WAD\WAD.Application.7895\eZone.BLL\obj\Debug\net5.0\eZone.BLL.AssemblyInfo.cs
+D:\WIUT\Level 5\WAD\CW\Github versions\WAD\WAD.Application.7895\eZone.BLL\obj\Debug\net5.0\eZone.BLL.csproj.CoreCompileInputs.cache
+D:\WIUT\Level 5\WAD\CW\Github versions\WAD\WAD.Application.7895\eZone.BLL\obj\Debug\net5.0\eZone.BLL.csproj.CopyComplete
+D:\WIUT\Level 5\WAD\CW\Github versions\WAD\WAD.Application.7895\eZone.BLL\obj\Debug\net5.0\eZone.BLL.dll
+D:\WIUT\Level 5\WAD\CW\Github versions\WAD\WAD.Application.7895\eZone.BLL\obj\Debug\net5.0\ref\eZone.BLL.dll
+D:\WIUT\Level 5\WAD\CW\Github versions\WAD\WAD.Application.7895\eZone.BLL\obj\Debug\net5.0\eZone.BLL.pdb
