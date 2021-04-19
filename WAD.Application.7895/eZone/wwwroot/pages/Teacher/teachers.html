@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <p>
+    <a href="#!/addTeacher" class="btn btn-primary">Create new teacher</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">
+                    Id
+                </th>
+                <th scope="col">
+                    First Name
+                </th>
+                <th scope="col">
+                    Last Name
+                </th>
+                <th scope="col">
+                    Phone
+                </th>
+                <th scope="col">
+                    DoB
+                </th>
+                <th scope="col">
+                    Email
+                </th>
+                <th scope="col">
+                    IELTS Score
+                </th>
+                <th></th>
+                <th></th>                
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="teacher in teachers">
+                <td>
+                    {{teacher.id}}
+                </td>
+                <td>
+                    {{teacher.firstName}}
+                </td>
+                <td>
+                    {{teacher.lastName}}
+                </td>
+                <td>
+                    {{teacher.phone}}
+                </td>
+                <td>
+                    <label ng-bind="formatDate(teacher.doB) | date:'dd/MM/yyyy'"></label>
+                </td>
+                <td>
+                    {{teacher.email}}
+                </td>
+                <td>
+                    {{teacher.ieltS_Score}}
+                </td>
+                <td>
+                    <a href="#!/editTeacher/{{teacher.id}}">Edit</a>
+                </td>                
+                <td>
+                    <a class="badge badge-danger" ng-click="Delete(teacher)">Delete</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
