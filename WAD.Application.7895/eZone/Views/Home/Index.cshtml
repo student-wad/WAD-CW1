@@ -2,7 +2,418 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div ng-app="eZoneSPA">
+    <div ng-view></div>
 </div>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.min.js"></script>
+<script type="text/javascript">
+    angular
+        .module('eZoneSPA', ['ngRoute'])
+        .config(function ($routeProvider) {
+            $routeProvider
+                .when('/',
+                    {
+                        templateUrl: 'pages/index.html',
+                        controller: 'IndexController'
+                    })
+                .when('/groups',
+                    {
+                        templateUrl: 'pages/Group/groups.html',
+                        controller: 'GroupController'
+                    })
+                .when('/teachers',
+                    {
+                        templateUrl: 'pages/Teacher/teachers.html',
+                        controller: 'TeacherController'
+                    })
+                .when('/students', {
+                    templateUrl: 'pages/Student/students.html',
+                    controller: 'StudentController'
+                })
+                .when('/courses', {
+                    templateUrl: 'pages/Course/courses.html',
+                    controller: 'CourseController'
+                })
+                .when('/addTeacher',
+                    {
+                        templateUrl: 'pages/Teacher/addEditTeacher.html',
+                        controller: 'AddTeacherController'
+                    })
+                .when('/editTeacher/:teacherId',
+                    {
+                        templateUrl: 'pages/Teacher/addEditTeacher.html',
+                        controller: 'EditTeacherController'
+                    })
+                .when('/addCourse',
+                    {
+                        templateUrl: 'pages/Course/addEditCourse.html',
+                        controller: 'AddCourseController'
+                    })
+                .when('/editCourse/:courseId',
+                    {
+                        templateUrl: 'pages/Course/addEditCourse.html',
+                        controller: 'EditCourseController'
+                    })
+                .when('/addStudent',
+                    {
+                        templateUrl: 'pages/Student/addEditStudent.html',
+                        controller: 'AddStudentController'
+                    })
+                .when('/editStudent/:studentId',
+                    {
+                        templateUrl: 'pages/Student/addEditStudent.html',
+                        controller: 'EditStudentController'
+                    })
+                .when('/addGroup',
+                    {
+                        templateUrl: 'pages/Group/addEditGroup.html',
+                        controller: 'AddGroupController'
+                    })
+                .when('/editGroup/:groupId',
+                    {
+                        templateUrl: 'pages/Group/addEditGroup.html',
+                        controller: 'EditGroupController'
+                    })
+                .otherwise({
+                    redirectTo: '/'
+                });
+        })
+     /*---Index---*/
+        .controller('IndexController', ['$scope', '$http', function ($scope, $http) {
+            $scope.message = 'Welcome';
+        }])
+
+    /*---Group---*/
+        .controller('GroupController', ['$scope', '$http', function ($scope, $http) {
+            $scope.groups = [];
+            $scope.teachers = [];
+
+            $scope.selectedTeacher = null;
+
+            $http.get('@Url.Action("GetTeachers", "Teacher")')
+                .then(function (response) {
+                    $scope.teachers = response.data;
+                });
+
+            $scope.formatDate = function (date) {
+                return new Date(date);
+            };
+
+            $scope.GetGroups = function () {
+                var url = '@Url.Action("GetGroups", "Group")';
+                if ($scope.selectedTeacher) {
+                    url += '?teacherId=' + $scope.selectedTeacher.id;
+                }
+                $http.get(url)
+                    .then(function (response) {
+                        $scope.groups = response.data;
+                    });
+            };
+
+            $scope.GetGroups(null);
+
+            $scope.Delete = function (group) {
+                $http.delete("@Url.Action("GetGroups", "Group")/" + group.id).then(function (response){
+                    var index = $scope.groups.indexOf(group);
+                    $scope.groups.splice(index, 1);
+                    });
+                }
+        }])
+        .controller('AddGroupController', ['$scope', '$http', '$location', function ($scope, $http, $location) {
+
+            $scope.teachers = [];
+            $scope.courses = [];
+            $scope.group =
+            {
+                id : 0,
+                groupLevel: '',
+                lessonDays: '',
+                groupTime: '',
+                startDate: '',
+                groupStatus: '',
+                numOfStudents: 0,
+                courseId: null,
+                teacherId: null
+            };
+           
+             $http.get('@Url.Action("GetTeachers", "Teacher")')
+                .then(function (response) {
+                    $scope.teachers = response.data;
+                });
+
+            $http.get('@Url.Action("GetCourses", "Course")')
+                .then(function (response) {
+                    $scope.courses = response.data;
+                });
+
+            $scope.SaveGroup = function()
+            {
+                $http.post('@Url.Action("PostGroup", "Group")', $scope.group)
+                    .then(function (response) {
+                        $location.path('/groups');
+                    })
+            }
+        }])
+        .controller('EditGroupController', ['$scope', '$http', '$location', '$routeParams', function ($scope, $http, $location, $routeParams) {
+            $scope.teachers = [];
+            $scope.courses = [];
+            $scope.group =
+            {
+                id: 0,
+                groupLevel: '',
+                lessonDays: '',
+                groupTime: '',
+                startDate: '',
+                groupStatus: '',
+                numOfStudents: 0,
+                courseId: null,
+                teacherId: null
+            };
+
+             $http.get('@Url.Action("GetTeachers", "Teacher")')
+                .then(function (response) {
+                    $scope.teachers = response.data;
+                });
+
+            $http.get('@Url.Action("GetCourses", "Course")')
+                .then(function (response) {
+                    $scope.courses = response.data;
+                });
+
+            $http.get('@Url.Action("GetGroups", "Group")/' + $routeParams.groupId)
+                .then(function (response) {
+                    $scope.group = response.data;
+                });
+
+            $scope.SaveGroup = function()
+            {
+                $http.put('@Url.Action("GetGroups", "Group")/' + $routeParams.groupId, $scope.group)
+                    .then(function (response) {
+                        $location.path('/groups');
+                    })
+            }
+        }])
+        /*---Teacher---*/
+        .controller('TeacherController', ['$scope', '$http', function ($scope, $http) {
+            $scope.teachers = [];
+            $http.get('@Url.Action("GetTeachers", "Teacher")')
+                .then(function (response) {
+                    $scope.teachers = response.data;
+                });
+
+            $scope.formatDate = function (date) {
+                return new Date(date);
+            };
+
+            $scope.Delete = function (teacher) {
+                $http.delete("@Url.Action("GetTeachers", "Teacher")/" + teacher.id).then(function (response){
+                    var index = $scope.teachers.indexOf(teacher);
+                    $scope.teachers.splice(index, 1);
+                    });
+                }
+        }])
+        .controller('AddTeacherController', ['$scope', '$http', '$location', function ($scope, $http, $location) {
+            $scope.teacher =
+            {
+                id : 0,
+                firstName: '',
+                lastName: '',
+                phone: '',
+                doB: '',
+                email: '',
+                ieltS_Score: 0
+            };
+           
+
+            $scope.SaveTeacher = function()
+            {
+                $http.post('@Url.Action("PostTeacher", "Teacher")', $scope.teacher)
+                    .then(function (response) {
+                        $location.path('/teachers');
+                    })
+            }
+        }])
+        .controller('EditTeacherController', ['$scope', '$http', '$location', '$routeParams', '$filter',function ($scope, $http, $location, $routeParams, $filter) {
+            $scope.teacher =
+            {
+                id: 0,
+                firstName: '',
+                lastName: '',
+                phone: '',
+                doB: '',
+                email: '',
+                ieltS_Score: 0
+            };
+
+
+            $http.get('@Url.Action("GetTeachers", "Teacher")/' + $routeParams.teacherId)
+                .then(function (response) {
+                    $scope.teacher = response.data;
+                });
+
+
+            $scope.SaveTeacher = function()
+            {
+                $http.put('@Url.Action("GetTeachers", "Teacher")/' + $routeParams.teacherId, $scope.teacher)
+                    .then(function (response) {
+                        $location.path('/teachers');
+                    })
+            }
+        }])
+        /*---Student---*/
+        .controller('StudentController', ['$scope', '$http', function ($scope, $http) {
+            $scope.students = [];
+            $scope.groups = [];
+
+            $scope.selectedGroup = null;
+
+            $http.get('@Url.Action("GetGroups", "Group")')
+                .then(function (response) {
+                    $scope.groups = response.data;
+                });
+
+            $scope.GetStudents = function () {
+                var url = '@Url.Action("GetStudents", "Student")';
+                if ($scope.selectedGroup) {
+                    url += '?groupId=' + $scope.selectedGroup.id;
+                }
+                $http.get(url)
+                    .then(function (response) {
+                        $scope.students = response.data;
+                    });
+            };
+            $scope.GetStudents(null);
+
+            $scope.formatDate = function (date) {
+                return new Date(date);
+            };
+
+            $scope.Delete = function (student) {
+                $http.delete("@Url.Action("GetStudents", "Student")/" + student.id).then(function (response) {
+                    var index = $scope.students.indexOf(student);
+                    $scope.students.splice(index, 1);
+                });
+                }
+
+        }])
+        .controller('AddStudentController', ['$scope', '$http', '$location', function ($scope, $http, $location) {
+            $scope.groups = [];
+            $scope.student =
+            {
+                id: 0,
+                firstName: '',
+                lastName: '',
+                phone: '',
+                firstLesson: '',
+                paymentStatus: '',
+                groupId: null
+            };
+
+            $http.get('@Url.Action("GetGroups", "Group")')
+                .then(function (response) {
+                    $scope.groups = response.data;
+                });
+
+            $scope.SaveStudent = function()
+            {
+                $http.post('@Url.Action("PostStudent", "Student")', $scope.student)
+                    .then(function (response) {
+                        $location.path('/students');
+                    })                 
+            }
+        }])
+        .controller('EditStudentController', ['$scope', '$http', '$location', '$routeParams', function ($scope, $http, $location, $routeParams) {
+            $scope.groups = [];
+            $scope.student =
+            {
+                id: 0,
+                firstName: '',
+                lastName: '',
+                phone: '',
+                firstLesson: '',
+                paymentStatus: '',
+                groupId: null
+            };
+
+             $http.get('@Url.Action("GetGroups", "Group")')
+                .then(function (response) {
+                    $scope.groups = response.data;
+                });
+
+            $http.get('@Url.Action("GetStudents", "Student")/' + $routeParams.studentId)
+                .then(function (response) {
+                    $scope.student = response.data;
+                });
+
+            $scope.SaveStudent = function()
+            {
+                $http.put('@Url.Action("GetStudents", "Student")/' + $routeParams.studentId, $scope.student)
+                    .then(function (response) {
+                        $location.path('/students');
+                    })
+            }
+        }])
+
+        /*---Course---*/
+        .controller('CourseController', ['$scope', '$http', function ($scope, $http) {
+            $scope.courses = [];
+
+            $http.get('@Url.Action("GetCourses", "Course")')
+                .then(function (response) {
+                    $scope.courses = response.data;
+                });
+
+
+             $scope.Delete = function (course) {
+                $http.delete("@Url.Action("GetCourses", "Course")/" + course.id).then(function (response){
+                    var index = $scope.courses.indexOf(course);
+                    $scope.courses.splice(index, 1);
+                    });
+                }
+        }])
+        .controller('AddCourseController', ['$scope', '$http', '$location', function ($scope, $http, $location) {
+            $scope.course =
+            {
+                id : 0,
+                courseLevel: null,
+                courseName: '',
+                courseDuration: '',
+                fee: 0,
+            };                       
+
+            $scope.SaveCourse = function()
+            {
+                $http.post('@Url.Action("PostCourse", "Course")', $scope.course)
+                    .then(function (response) {
+                        $location.path('/courses');
+                    })
+            }
+        }])
+        .controller('EditCourseController', ['$scope', '$http', '$location', '$routeParams', function ($scope, $http, $location, $routeParams) {
+            $scope.teacher =
+            {
+                id: 0,
+                courseLevel: '',
+                courseName: '',
+                courseDuration: '',
+                fee: 0,
+            };
+          
+            $http.get('@Url.Action("GetCourses", "Course")/' + $routeParams.courseId)
+                .then(function (response) {
+                    $scope.course = response.data;
+                });
+              
+            $scope.SaveCourse = function()
+            {
+                $http.put('@Url.Action("GetCourses", "Course")/' + $routeParams.courseId, $scope.course)
+                    .then(function (response) {
+                        $location.path('/courses');
+                    })
+            }
+        }]);
+</script>
+
+
