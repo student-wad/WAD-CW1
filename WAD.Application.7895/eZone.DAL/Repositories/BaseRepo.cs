@@ -1,13 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace eZone.DAL.Repositories
 {
-   public abstract class BaseRepo<T>:IRepository<T> where T:class
+    public abstract class BaseRepo<T>:IRepository<T> where T:class
     {
         protected readonly eZoneDbContext _context;
         internal DbSet<T> _dbSet;
