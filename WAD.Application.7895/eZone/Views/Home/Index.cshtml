@@ -447,6 +447,7 @@
                 }
         }])
         .controller('AddCourseController', ['$scope', '$http', '$location', function ($scope, $http, $location) {
+            $scope.courseLevels = [];
             $scope.course =
             {
                 id : 0,
@@ -455,6 +456,12 @@
                 courseDuration: '',
                 fee: 0,
             };
+
+            /*GET - Enum - Course Level*/
+            $http.get('/api/Enum/CourseLevel')
+                .then(function (response) {
+                    $scope.courseLevels = response.data;
+                });
 
             $scope.SaveCourse = function()
             {
@@ -465,14 +472,21 @@
             }
         }])
         .controller('EditCourseController', ['$scope', '$http', '$location', '$routeParams', function ($scope, $http, $location, $routeParams) {
-            $scope.teacher =
+            $scope.courseLevels = [];
+            $scope.course =
             {
                 id: 0,
-                courseLevel: '',
+                courseLevel: null,
                 courseName: '',
                 courseDuration: '',
                 fee: 0,
             };
+
+            /*GET - Enum - Course Level*/
+            $http.get('/api/Enum/CourseLevel')
+                .then(function (response) {
+                    $scope.courseLevels = response.data;
+                });
 
             $http.get('@Url.Action("GetCourses", "Course")/' + $routeParams.courseId)
                 .then(function (response) {

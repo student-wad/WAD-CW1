@@ -9,11 +9,11 @@
     <form>
         <div class="form-group row">
             <label for="courseLevel" class="col-sm-2 col-form-label">Course Level</label>
-            <div class="col-7">
-                <select class="form-control" ng-model="course.courseLevel">
-                    <option value="" selected>Select Course Level</option>  
-                    <option value="0">IELTS</option>
-                    <option value="1">General English</option>
+            <div class="col-7"> 
+                <select class="form-control"
+                        ng-options="cl.value as cl.name for cl in courseLevels"
+                        ng-model="course.courseLevel">
+                    <option value="">Select Course Level</option>
                 </select>
             </div>
         </div>
