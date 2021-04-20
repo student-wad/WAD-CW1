@@ -17,4 +17,3 @@ D:\WIUT\Level 5\WAD\CW\Github versions\WAD\WAD.Application.7895\eZone.DAL\obj\De
 D:\WIUT\Level 5\WAD\CW\Github versions\WAD\WAD.Application.7895\eZone.DAL\obj\Debug\net5.0\ref\eZone.DAL.dll
 D:\WIUT\Level 5\WAD\CW\Github versions\WAD\WAD.Application.7895\eZone.DAL\obj\Debug\net5.0\eZone.DAL.pdb
 D:\WIUT\Level 5\WAD\CW\Github versions\WAD\WAD.Application.7895\eZone.DAL\obj\Debug\net5.0\eZone.DAL.genruntimeconfig.cache
-D:\WIUT\Level 5\WAD\CW\Github versions\WAD\WAD.Application.7895\eZone.DAL\obj\Debug\net5.0\eZone.DAL.csprojAssemblyReference.cache
