@@ -45,7 +45,7 @@ namespace eZone.DAL.DBO
 
     public enum PaymentStatus
     {
-        [Display(Name ="Not Paid")]
+        [Display(Name ="Paid")]
         Paid,
         [Display(Name="Not Paid")]
         Not_Paid
