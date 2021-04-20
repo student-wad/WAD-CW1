@@ -37,11 +37,11 @@
 
         <div class="form-group row">
             <label for="paymentStatus" class="col-sm-2 col-form-label">Payment Status</label>
-            <div class="col-7">
-                <select class="form-control" ng-model="student.paymentStatus">
-                    <option value="" selected>Select Payment Status</option>
-                    <option value=0>Paid</option>
-                    <option value=1>Not Paid</option>
+            <div class="col-7">  
+                <select class="form-control"
+                        ng-options="ps.value as ps.name for ps in payStatus"
+                        ng-model="student.paymentStatus">
+                    <option value="">Select Lesson Days</option>
                 </select>
             </div>
         </div>

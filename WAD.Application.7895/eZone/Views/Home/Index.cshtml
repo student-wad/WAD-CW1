@@ -196,11 +196,11 @@
             $scope.group =
             {
                 id: 0,
-                groupLevel: '',
-                lessonDays: '',
-                groupTime: '',
+                groupLevel: null,
+                lessonDays: null,
+                groupTime: null,
                 startDate: '',
-                groupStatus: '',
+                groupStatus: null,
                 numOfStudents: 0,
                 courseId: null,
                 teacherId: null
@@ -286,7 +286,6 @@
                 ieltS_Score: 0
             };
 
-
             $scope.SaveTeacher = function()
             {
                 $http.post('@Url.Action("PostTeacher", "Teacher")', $scope.teacher)
@@ -307,12 +306,10 @@
                 ieltS_Score: 0
             };
 
-
             $http.get('@Url.Action("GetTeachers", "Teacher")/' + $routeParams.teacherId)
                 .then(function (response) {
                     $scope.teacher = response.data;
                 });
-
 
             $scope.SaveTeacher = function()
             {
@@ -360,6 +357,7 @@
         }])
         .controller('AddStudentController', ['$scope', '$http', '$location', function ($scope, $http, $location) {
             $scope.groups = [];
+            $scope.payStatus = [];
             $scope.student =
             {
                 id: 0,
@@ -367,13 +365,20 @@
                 lastName: '',
                 phone: '',
                 firstLesson: '',
-                paymentStatus: '',
+                paymentStatus: null,
                 groupId: null
             };
 
+            /*GET - All Groups*/
             $http.get('@Url.Action("GetGroups", "Group")')
                 .then(function (response) {
                     $scope.groups = response.data;
+                });
+
+            /*GET - Enum - Payment Status*/
+            $http.get('/api/Enum/PaymentStatus')
+                .then(function (response) {
+                    $scope.payStatus = response.data;
                 });
 
             $scope.SaveStudent = function()
@@ -386,6 +391,7 @@
         }])
         .controller('EditStudentController', ['$scope', '$http', '$location', '$routeParams', function ($scope, $http, $location, $routeParams) {
             $scope.groups = [];
+            $scope.payStatus = [];
             $scope.student =
             {
                 id: 0,
@@ -393,13 +399,20 @@
                 lastName: '',
                 phone: '',
                 firstLesson: '',
-                paymentStatus: '',
+                paymentStatus: null,
                 groupId: null
             };
 
+            /*GET - All Groups*/
              $http.get('@Url.Action("GetGroups", "Group")')
                 .then(function (response) {
                     $scope.groups = response.data;
+                });
+
+            /*GET - Enum - Payment Status*/
+            $http.get('/api/Enum/PaymentStatus')
+                .then(function (response) {
+                    $scope.payStatus = response.data;
                 });
 
             $http.get('@Url.Action("GetStudents", "Student")/' + $routeParams.studentId)
