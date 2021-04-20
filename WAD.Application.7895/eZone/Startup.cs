@@ -36,11 +36,7 @@ namespace eZone
             services.AddControllersWithViews();
             services.AddDbContext<eZoneDbContext>(
                options => options.UseSqlServer(
-                   Configuration.GetConnectionString("eZone")));
-            services.AddMvc().AddJsonOptions(options =>
-            {
-                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-            });
+                   Configuration.GetConnectionString("eZone")));          
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
