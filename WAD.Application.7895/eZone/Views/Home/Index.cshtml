@@ -125,27 +125,57 @@
 
             $scope.teachers = [];
             $scope.courses = [];
+            $scope.levels = [];
+            $scope.days = [];
+            $scope.time = [];
+            $scope.status = [];
             $scope.group =
             {
                 id : 0,
-                groupLevel: '',
-                lessonDays: '',
-                groupTime: '',
+                groupLevel: null,
+                lessonDays: null,
+                groupTime: null,
                 startDate: '',
-                groupStatus: '',
+                groupStatus: null,
                 numOfStudents: 0,
                 courseId: null,
                 teacherId: null
             };
-           
+
+            /*GET - all Teachers*/
              $http.get('@Url.Action("GetTeachers", "Teacher")')
                 .then(function (response) {
                     $scope.teachers = response.data;
                 });
 
+            /*GET - all Courses*/
             $http.get('@Url.Action("GetCourses", "Course")')
                 .then(function (response) {
                     $scope.courses = response.data;
+                });                    
+
+            /*GET - Enum - Group Level*/
+            $http.get('/api/Enum/GroupLevel')
+                .then(function (response) {
+                    $scope.levels = response.data;
+                });
+
+            /*GET - Enum - Group Days*/
+            $http.get('/api/Enum/GroupDays')
+                .then(function (response) {
+                    $scope.days = response.data;
+                });
+
+            /*GET - Enum - Group Time*/
+            $http.get('/api/Enum/GroupTime')
+                .then(function (response) {
+                    $scope.time = response.data;
+                });
+
+            /*GET - Enum - Group Status*/
+            $http.get('/api/Enum/GroupStatus')
+                .then(function (response) {
+                    $scope.status = response.data;
                 });
 
             $scope.SaveGroup = function()
@@ -159,6 +189,10 @@
         .controller('EditGroupController', ['$scope', '$http', '$location', '$routeParams', function ($scope, $http, $location, $routeParams) {
             $scope.teachers = [];
             $scope.courses = [];
+            $scope.levels = [];
+            $scope.days = [];
+            $scope.time = [];
+            $scope.status = [];
             $scope.group =
             {
                 id: 0,
@@ -172,14 +206,40 @@
                 teacherId: null
             };
 
+            /*GET - All Teachers*/
              $http.get('@Url.Action("GetTeachers", "Teacher")')
                 .then(function (response) {
                     $scope.teachers = response.data;
                 });
 
+            /*GET - All Courses*/
             $http.get('@Url.Action("GetCourses", "Course")')
                 .then(function (response) {
                     $scope.courses = response.data;
+                });
+
+            /*GET - Enum - Group Level*/
+            $http.get('/api/Enum/GroupLevel')
+                .then(function (response) {
+                    $scope.levels = response.data;
+                });
+
+            /*GET - Enum - Group Days*/
+            $http.get('/api/Enum/GroupDays')
+                .then(function (response) {
+                    $scope.days = response.data;
+                });
+
+            /*GET - Enum - Group Time*/
+            $http.get('/api/Enum/GroupTime')
+                .then(function (response) {
+                    $scope.time = response.data;
+                });
+
+            /*GET - Enum - Group Status*/
+            $http.get('/api/Enum/GroupStatus')
+                .then(function (response) {
+                    $scope.status = response.data;
                 });
 
             $http.get('@Url.Action("GetGroups", "Group")/' + $routeParams.groupId)
@@ -225,7 +285,7 @@
                 email: '',
                 ieltS_Score: 0
             };
-           
+
 
             $scope.SaveTeacher = function()
             {
@@ -321,7 +381,7 @@
                 $http.post('@Url.Action("PostStudent", "Student")', $scope.student)
                     .then(function (response) {
                         $location.path('/students');
-                    })                 
+                    })
             }
         }])
         .controller('EditStudentController', ['$scope', '$http', '$location', '$routeParams', function ($scope, $http, $location, $routeParams) {
@@ -381,7 +441,7 @@
                 courseName: '',
                 courseDuration: '',
                 fee: 0,
-            };                       
+            };
 
             $scope.SaveCourse = function()
             {
@@ -400,12 +460,12 @@
                 courseDuration: '',
                 fee: 0,
             };
-          
+
             $http.get('@Url.Action("GetCourses", "Course")/' + $routeParams.courseId)
                 .then(function (response) {
                     $scope.course = response.data;
                 });
-              
+
             $scope.SaveCourse = function()
             {
                 $http.put('@Url.Action("GetCourses", "Course")/' + $routeParams.courseId, $scope.course)

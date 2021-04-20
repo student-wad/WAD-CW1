@@ -9,37 +9,33 @@
     <form>
         <div class="form-group row">
             <label for="groupLevel" class="col-sm-2 col-form-label">Group Level</label>
-            <div class="col-7">
-                <select class="form-control" ng-model="group.groupLevel">
-                    <option value="" selected>Select Group Level</option>
-                    <option value=0>L1</option>
-                    <option value=1>L2</option>
-                    <option value=2>L3</option>
+            <div class="col-7"> 
+                <select class="form-control"
+                        ng-options="lvl.value as lvl.name for lvl in levels"
+                        ng-model="group.groupLevel">
+                    <option value="">Select Group Level</option>
                 </select>
             </div>
         </div>
 
         <div class="form-group row">
             <label for="lessonDays" class="col-sm-2 col-form-label">Lesson Days</label>
-            <div class="col-7">
-                <select class="form-control" ng-model="group.lessonDays">
-                    <option value="" selected>Select Lesson Days</option>
-                    <option value=0>Mon/Wed/Fri</option>
-                    <option value=1>Tue/Thu/Sat</option>
+            <div class="col-7"> 
+                <select class="form-control"
+                        ng-options="d.value as d.name for d in days"
+                        ng-model="group.lessonDays">
+                    <option value="">Select Lesson Days</option>
                 </select>
             </div>
         </div>
 
         <div class="form-group row">
-            <label for="groupLevel" class="col-sm-2 col-form-label">Group Time</label>
+            <label for="groupTime" class="col-sm-2 col-form-label">Group Time</label>
             <div class="col-7">
-                <select class="form-control" ng-model="group.groupTime">
-                    <option value="" selected>Select Group Time</option>
-                    <option value=0>9:00-11:00</option>
-                    <option value=1>11:00-13:00</option>
-                    <option value=2>15:00-17:00</option>
-                    <option value=3>17:00-19:00</option>
-                    <option value=4>19:00-21:00</option>
+                <select class="form-control"
+                        ng-options="t.value as t.name for t in time"
+                        ng-model="group.groupTime">
+                    <option value="">Select Group Time</option>
                 </select>
             </div>
         </div>
@@ -53,11 +49,11 @@
 
         <div class="form-group row">
             <label for="groupStatus" class="col-sm-2 col-form-label">Group Status</label>
-            <div class="col-7">
-                <select class="form-control" ng-model="group.groupStatus">
-                    <option value="" selected>Select Group Status</option>
-                    <option value=0>Not Full</option>
-                    <option value=1>Full</option>
+            <div class="col-7"> 
+                <select class="form-control"
+                        ng-options="s.value as s.name for s in status"
+                        ng-model="group.groupStatus">
+                    <option value="">Select Group Status</option>
                 </select>
             </div>
         </div>
