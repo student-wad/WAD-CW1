@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -17,7 +18,14 @@ namespace eZone.BLL.Enums
                             .First()
                             .GetCustomAttribute<TAttribute>();
         }
+        public static List<EnumValue> GetValues<T>()
+        {
+            return Enum.GetValues(typeof(T)).Cast<Enum>().Select(v => new EnumValue()
+            {
+                Name = v.GetAttribute<DisplayAttribute>().Name,
+                Value = Convert.ToInt32(v)
+            }).ToList();
+        }
 
-       
     }
 }
