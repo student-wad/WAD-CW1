@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using eZone.DAL.DBO;
 using eZone.DAL.Repositories;
 using eZone.BLL.DTO;
-using eZone.BLL;
+using eZone.BLL.Enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace eZone.Controllers

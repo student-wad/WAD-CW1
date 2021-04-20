@@ -9,7 +9,7 @@ using eZone.DAL.DBO;
 using eZone.DAL.Repositories;
 using eZone.BLL.DTO;
 using System.ComponentModel.DataAnnotations;
-using eZone.BLL;
+using eZone.BLL.Enums;
 
 namespace eZone.Controllers
 {

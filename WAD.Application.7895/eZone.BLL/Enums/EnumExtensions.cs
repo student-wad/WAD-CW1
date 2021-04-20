@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace eZone.BLL
+namespace eZone.BLL.Enums
 {
    public static class EnumExtensions
     {
