@@ -17,7 +17,7 @@ namespace eZone.BLL.GroupStatusState
         public GroupStudentCount(IRepository<Group> repo, Group group)
         {
             _group = group;
-            _groupProcessor = group.NumOfStudents >= 2 ? new GroupFullState() : new GroupNotFullState(repo);
+            _groupProcessor = group.NumOfStudents >= 6 ? new GroupFullState() : new GroupNotFullState(repo);
         }
         public void IncrementStudentCount()
         {
